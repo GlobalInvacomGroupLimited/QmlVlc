@@ -39,6 +39,8 @@ class QmlVlcVideoSurface
 
     Q_PROPERTY( FillMode fillMode READ fillMode WRITE setFillMode NOTIFY fillModeChanged )
     Q_PROPERTY( QmlVlcVideoSource* source READ source WRITE setSource NOTIFY sourceChanged )
+    Q_PROPERTY(int aspectRatio READ aspectRatio WRITE setAspectRatio NOTIFY aspectRatioChanged)
+    Q_PROPERTY(int cropRatio READ cropRatio WRITE setCropRatio NOTIFY cropRatioChanged)
 
 public:
     QmlVlcVideoSurface();
@@ -49,11 +51,38 @@ public:
         PreserveAspectFit  = Qt::KeepAspectRatio,
         PreserveAspectCrop = Qt::KeepAspectRatioByExpanding
     };
+
+    enum Ratio {
+        Original,
+        Ignore, /*!< QML aspect ratio only */
+        R_16_9,
+        R_16_10,
+        R_185_100,
+        R_221_100,
+        R_235_100,
+        R_239_100,
+        R_4_3,
+        R_5_4,
+        R_5_3,
+        R_1_1
+    };
+
+
     Q_ENUMS( FillMode )
+    Q_ENUMS( Ratio )
 
     FillMode fillMode() const
         { return m_fillMode; }
     void setFillMode( FillMode mode );
+
+    int aspectRatio() const;
+
+    void setAspectRatio(int aspectRatio);
+
+    int cropRatio() const;
+
+    void setCropRatio(int cropRatio);
+
 
     QmlVlcVideoSource* source() const;
     void setSource( QmlVlcVideoSource* source );
@@ -66,9 +95,17 @@ public Q_SLOTS:
 Q_SIGNALS:
     void sourceChanged();
     void fillModeChanged( FillMode mode );
+    void aspectRatioChanged();
+    void cropRatioChanged();
+
 
 private:
+
+    QSizeF ratioSize(const QmlVlcVideoSurface::Ratio &ratio);
+
     FillMode m_fillMode;
+    Ratio m_aspectRatio;
+    Ratio m_cropRatio;
 
     QPointer<QmlVlcVideoSource> m_source;
 

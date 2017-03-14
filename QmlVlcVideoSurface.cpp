@@ -29,7 +29,7 @@
 #include "SGVlcVideoNode.h"
 
 QmlVlcVideoSurface::QmlVlcVideoSurface()
-    : m_fillMode( PreserveAspectFit ), m_source( nullptr ), m_frameUpdated( false )
+    : m_fillMode( PreserveAspectFit ), m_aspectRatio( R_16_9 ), m_source( nullptr ), m_frameUpdated( false )
 {
     setFlag( QQuickItem::ItemHasContents, true );
 }
@@ -49,6 +49,41 @@ void QmlVlcVideoSurface::setFillMode( FillMode m )
     update();
 
     emit fillModeChanged( m );
+}
+
+
+int QmlVlcVideoSurface::aspectRatio() const
+{
+    return m_aspectRatio;
+}
+
+void QmlVlcVideoSurface::setAspectRatio(int aspectRatio)
+{
+    if (m_aspectRatio == aspectRatio)
+        return;
+
+    m_aspectRatio = QmlVlcVideoSurface::Ratio(aspectRatio);
+
+    update();
+
+    emit aspectRatioChanged();
+}
+
+int QmlVlcVideoSurface::cropRatio() const
+{
+    return m_cropRatio;
+}
+
+void QmlVlcVideoSurface::setCropRatio(int cropRatio)
+{
+    if (m_cropRatio == cropRatio)
+        return;
+
+    m_cropRatio = QmlVlcVideoSurface::Ratio(cropRatio);
+
+    update();
+
+    emit cropRatioChanged();
 }
 
 QmlVlcVideoSource* QmlVlcVideoSurface::source() const
@@ -73,8 +108,10 @@ void QmlVlcVideoSurface::setSource( QmlVlcVideoSource* source )
 }
 
 QSGNode* QmlVlcVideoSurface::updatePaintNode( QSGNode* oldNode,
-                                              UpdatePaintNodeData* /*data*/ )
+                                            UpdatePaintNodeData *data)
 {
+    Q_UNUSED(data)
+
     SGVlcVideoNode* node = static_cast<SGVlcVideoNode*>( oldNode );
     if( !m_frame ) {
         delete node;
@@ -91,8 +128,27 @@ QSGNode* QmlVlcVideoSurface::updatePaintNode( QSGNode* oldNode,
         const uint16_t fw = m_frame->width;
         const uint16_t fh = m_frame->height;
 
-        const qreal frameAspect = qreal( fw ) / fh;
+        qreal frameAspectTmp = qreal( fw ) / fh;
+        QSizeF aspectRatioSize = ratioSize(m_aspectRatio);
+        if (aspectRatioSize.width() != 0 && aspectRatioSize.height() != 0) {
+            frameAspectTmp = aspectRatioSize.width() / aspectRatioSize.height();
+        }
+        QSizeF cropRatioSize = ratioSize(m_cropRatio);
+        if (cropRatioSize.width() != 0 && cropRatioSize.height() != 0) {
+            const qreal cropAspect = cropRatioSize.width() / cropRatioSize.height();
+
+            if (frameAspectTmp > cropAspect) {
+                srcRect.setX((1. - cropAspect / frameAspectTmp) / 2);
+                srcRect.setWidth(1. - srcRect.x() - srcRect.x());
+            } else if (frameAspectTmp < cropAspect) {
+                srcRect.setY((1. - frameAspectTmp / cropAspect) / 2);
+                srcRect.setHeight(1. - srcRect.y() - srcRect.y());
+            }
+
+            frameAspectTmp = cropAspect;
+        }
         const qreal itemAspect = width() / height();
+        const qreal frameAspect = frameAspectTmp;
 
         if( PreserveAspectFit == fillMode() ) {
             qreal outWidth = width();
@@ -130,3 +186,49 @@ void QmlVlcVideoSurface::presentFrame( const std::shared_ptr<const QmlVlcI420Fra
     m_frameUpdated = true;
     update();
 }
+
+QSizeF QmlVlcVideoSurface::ratioSize(const QmlVlcVideoSurface::Ratio &ratio)
+{
+    switch (ratio) {
+    case QmlVlcVideoSurface::R_16_9:
+        return QSizeF(16, 9);
+        break;
+    case QmlVlcVideoSurface::R_16_10:
+        return QSizeF(16, 10);
+        break;
+    case QmlVlcVideoSurface::R_185_100:
+        return QSizeF(185, 100);
+        break;
+    case QmlVlcVideoSurface::R_221_100:
+        return QSizeF(221, 100);
+        break;
+    case QmlVlcVideoSurface::R_235_100:
+        return QSizeF(235, 100);
+        break;
+    case QmlVlcVideoSurface::R_239_100:
+        return QSizeF(239, 100);
+        break;
+    case QmlVlcVideoSurface::R_4_3:
+        return QSizeF(4, 3);
+        break;
+    case QmlVlcVideoSurface::R_5_4:
+        return QSizeF(5, 4);
+        break;
+    case QmlVlcVideoSurface::R_5_3:
+        return QSizeF(5, 3);
+        break;
+    case QmlVlcVideoSurface::R_1_1:
+        return QSizeF(1, 1);
+        break;
+    case QmlVlcVideoSurface::Original:
+    case QmlVlcVideoSurface::Ignore:
+    default:
+        return QSizeF(0, 0);
+        break;
+    }
+
+    return QSizeF(0, 0);
+}
+
+
+
