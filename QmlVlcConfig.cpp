@@ -24,7 +24,10 @@
 *******************************************************************************/
 
 #include "QmlVlcConfig.h"
+
+#if defined(__APPLE__)
 #include "vlc-plugins-iPhone.h"
+#endif
 
 #include <QVector>
 #include <QStringList>
