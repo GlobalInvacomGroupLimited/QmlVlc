@@ -25,6 +25,15 @@
 
 #pragma once
 
+#include <QQmlExtensionPlugin>
+
 #include "QmlVlcConfig.h"
 
-void RegisterQmlVlc();
+class QmlVlcPlugin: public QQmlExtensionPlugin
+{
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
+
+    public:
+        void registerTypes(const char *uri);
+};

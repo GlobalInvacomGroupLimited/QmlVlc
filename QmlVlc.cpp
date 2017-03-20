@@ -97,7 +97,9 @@ void RegisterQmlVlcPlayer()
 #endif
 }
 
-void RegisterQmlVlc()
+void QmlVlcPlugin::registerTypes(const char *uri)
 {
+    Q_UNUSED(uri);
+
     RegisterQmlVlcPlayer();
 }
