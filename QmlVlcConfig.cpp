@@ -27,6 +27,8 @@
 
 #if defined(__APPLE__)
 #include "vlc-plugins-iPhone.h"
+#else if defined(__ANDROID__)
+#include "vlc-plugins-android.h"
 #endif
 
 #include <QVector>
