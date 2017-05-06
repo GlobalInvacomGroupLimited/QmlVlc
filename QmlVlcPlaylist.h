@@ -28,7 +28,7 @@
 #include <QObject>
 #include <QQmlListProperty>
 
-#include "libvlc_wrapper/vlc_player.h"
+#include <libvlcpp/vlcpp/vlc.hpp>
 
 class QmlVlcPlayerProxy; //#include "QmlVlcPlayerProxy.h"
 #include "QmlVlcMedia.h"

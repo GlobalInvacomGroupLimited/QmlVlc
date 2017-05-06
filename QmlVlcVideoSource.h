@@ -30,7 +30,7 @@
 #include <QtQml/qqml.h>
 #include <QQmlParserStatus>
 
-#include <libvlc_wrapper/vlc_player.h>
+#include <libvlcpp/vlcpp/vlc.hpp>
 
 #include "QmlVlcVideoOutput.h"
 
@@ -44,10 +44,9 @@ class QmlVlcVideoSource
     Q_INTERFACES( QQmlParserStatus )
 
 public:
-    QmlVlcVideoSource( const std::shared_ptr<vlc::player_core>& player, QObject* parent );
+    QmlVlcVideoSource( QObject* parent );
 
-    void classBegin() override;
-    void componentComplete() override;
+    void classBegin( const std::shared_ptr<VLC::MediaPlayer>& player );
 
     virtual void registerVideoSurface( QmlVlcVideoSurface* );
     virtual void unregisterVideoSurface( QmlVlcVideoSurface* );

@@ -40,9 +40,9 @@ QmlVlcConfig& QmlVlcConfig::instance()
     return instance;
 }
 
-QmlVlcConfig::QmlVlcConfig()
-    : _networkCacheTime( -1 ), _adjustFilter( false ), _marqueeFilter( false ),
-      _logoFilter( false ), _debug( false ), _noVideoTitleShow( true ),
+QmlVlcConfig::QmlVlcConfig( QObject* parent )
+    :  QObject(parent), _networkCacheTime( -1 ), _adjustFilter( false ), _marqueeFilter( false ),
+      _logoFilter( false ), _debug( false ), _fecLog( false ), _noVideoTitleShow( true ),
       _hardwareAcceleration( false ), _trustedEnvironment( false ),
       _libvlcCounter( 0 ), _libvlc( nullptr )
 {
@@ -76,6 +76,11 @@ void QmlVlcConfig::enableLogoFilter( bool enable )
 void QmlVlcConfig::enableDebug( bool enable )
 {
     _debug = enable;
+}
+
+void QmlVlcConfig::enableFecLog( bool enable )
+{
+    _fecLog = enable;
 }
 
 void QmlVlcConfig::enableNoVideoTitleShow( bool enable )
@@ -137,7 +142,7 @@ bool QmlVlcConfig::isOptionTrusted( const QString& opt ) const
     return true;
 }
 
-libvlc_instance_t* QmlVlcConfig::createLibvlcInstance()
+VLC::Instance* QmlVlcConfig::createLibvlcInstance()
 {
     Q_ASSERT( ( _libvlcCounter && _libvlc ) || ( !_libvlcCounter && !_libvlc ) );
     if( _libvlc ) {
@@ -177,6 +182,11 @@ libvlc_instance_t* QmlVlcConfig::createLibvlcInstance()
     if( _debug )
         opts.push_back( "-vvv" );
 
+    if( _fecLog )
+        opts.push_back( "--fec-logging" );
+    else
+        opts.push_back( "--no-fec-logging" );
+
     if( _noVideoTitleShow )
         opts.push_back( "--no-video-title-show" );
 
@@ -185,13 +195,23 @@ libvlc_instance_t* QmlVlcConfig::createLibvlcInstance()
         opts.push_back( "--avcodec-hw=any" );
     }
 
-    _libvlc = libvlc_new( opts.size(), opts.data() );
+#ifdef DISABLE_AV
+        opts.push_back( "--novideo" );
+        opts.push_back( "--noaudio" );
+#endif
+
+    _libvlc = new VLC::Instance(opts.size(), opts.data());
+
+   if( _libvlc == nullptr ) {
+        qCritical( "Couldn't create libvlc instance. Check vlc plugins dir." );
+    }
+
     _libvlcCounter = 1;
 
     return _libvlc;
 }
 
-void QmlVlcConfig::releaseLibvlcInstance( libvlc_instance_t* libvlc )
+void QmlVlcConfig::releaseLibvlcInstance( VLC::Instance* libvlc )
 {
     if( !_libvlcCounter || libvlc != _libvlc ) {
         Q_ASSERT( false );
@@ -199,7 +219,7 @@ void QmlVlcConfig::releaseLibvlcInstance( libvlc_instance_t* libvlc )
     }
 
     if( !--_libvlcCounter ) {
-        libvlc_release( _libvlc );
+        delete _libvlc;
         _libvlc = nullptr;
     }
 }

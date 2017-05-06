@@ -24,8 +24,7 @@
 *******************************************************************************/
 
 #pragma once
-
-#include <libvlc_wrapper/vlc_media_list_player.h>
+#include <vlc.hpp>
 
 #include "QmlVlcPlayerProxy.h"
 
@@ -49,6 +48,6 @@ protected:
     void handleLibvlcEvent( const LibvlcEvent& event ) override;
 
 protected:
-    explicit QmlVlcMediaListPlayerProxy( const std::shared_ptr<vlc::media_list_player>& player, QObject* parent = 0 );
+    explicit QmlVlcMediaListPlayerProxy( const std::shared_ptr<VLC::MediaList>& player, QObject* parent = 0 );
     ~QmlVlcMediaListPlayerProxy();
 };

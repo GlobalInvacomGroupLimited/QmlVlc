@@ -27,13 +27,13 @@
 
 #include <QObject>
 
-#include "libvlc_wrapper/vlc_player.h"
+#include <libvlcpp/vlcpp/vlc.hpp>
 
 class QmlVlcInput : public QObject
 {
     Q_OBJECT
 public:
-    QmlVlcInput( vlc::player_core& player )
+    QmlVlcInput( VLC::MediaListPlayer& player )
         : m_player( player ) { }
 
     Q_PROPERTY( double length READ get_length )
@@ -81,5 +81,5 @@ public:
     Q_INVOKABLE void nextChapter();
 
 private:
-    vlc::player_core& m_player;
+    VLC::MediaListPlayer& m_player;
 };

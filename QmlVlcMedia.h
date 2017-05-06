@@ -27,7 +27,7 @@
 
 #include <QObject>
 
-#include "libvlc_wrapper/vlc_player.h"
+#include <libvlcpp/vlcpp/vlc.hpp>
 
 #include <QObject>
 #include <QPointer>

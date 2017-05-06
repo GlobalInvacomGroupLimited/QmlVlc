@@ -27,13 +27,13 @@
 
 #include <QObject>
 
-#include "libvlc_wrapper/vlc_player.h"
+#include <libvlcpp/vlcpp/vlc.hpp>
 
 class QmlVlcMarquee : public QObject
 {
     Q_OBJECT
 public:
-    QmlVlcMarquee( vlc::player_core& player )
+    QmlVlcMarquee( VLC::Media& player )
         : m_player( player ) { }
 
     Q_PROPERTY( QString text READ get_text WRITE set_text )
@@ -97,5 +97,5 @@ private:
     void set_marquee_int( libvlc_video_marquee_option_t, int i );
 
 private:
-    vlc::player_core & m_player;
+    VLC::Media & m_player;
 };

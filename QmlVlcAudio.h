@@ -27,33 +27,41 @@
 
 #include <QObject>
 
-#include "libvlc_wrapper/vlc_player.h"
+#include <libvlcpp/vlcpp/vlc.hpp>
 
 class QmlVlcAudio
-    : public QObject,
-      protected vlc::audio_events_callback
+    : public QObject//,
 {
     Q_OBJECT
 public:
-    QmlVlcAudio( vlc::player_core& player );
+    QmlVlcAudio( );
+
+    void classBegin( const std::shared_ptr<VLC::MediaPlayer>& player );
+
+    void classEnd();
+
     ~QmlVlcAudio();
 
     enum Output {
-        Stereo = ::libvlc_AudioChannel_Stereo,
+        Stereo        = ::libvlc_AudioChannel_Stereo,
         ReverseStereo = ::libvlc_AudioChannel_RStereo,
-        Left = ::libvlc_AudioChannel_Left,
-        Right = ::libvlc_AudioChannel_Right,
-        Dolby = ::libvlc_AudioChannel_Dolbys,
+        Left          = ::libvlc_AudioChannel_Left,
+        Right         = ::libvlc_AudioChannel_Right,
+        Dolby         = ::libvlc_AudioChannel_Dolbys,
     };
     Q_ENUMS( Output )
 
     Q_PROPERTY( unsigned count READ get_trackCount )
 
-    Q_PROPERTY( int track READ get_track WRITE set_track )
-    Q_PROPERTY( bool mute READ get_mute WRITE set_mute NOTIFY muteChanged )
-    Q_PROPERTY( unsigned volume READ get_volume WRITE set_volume NOTIFY volumeChanged )
-    Q_PROPERTY( Output channel READ get_channel WRITE set_channel )
-    Q_PROPERTY( int delay READ get_delay WRITE set_delay )
+    Q_PROPERTY( int      track  READ get_track   WRITE set_track )
+    Q_PROPERTY( bool     mute   READ get_mute    WRITE set_mute   NOTIFY muteChanged )
+    Q_PROPERTY( unsigned volume READ get_volume  WRITE set_volume NOTIFY volumeChanged )
+    Q_PROPERTY( Output channel  READ get_channel WRITE set_channel )
+    Q_PROPERTY( int delay       READ get_delay   WRITE set_delay )
+
+
+    Q_INVOKABLE void toggleMute();
+    Q_INVOKABLE QString description( signed idx );
 
     unsigned get_trackCount();
 
@@ -70,20 +78,20 @@ public:
     void set_channel( Output );
 
     //in milliseconds
-    int get_delay();
-    void set_delay( int );
+    int64_t get_delay();
+    void set_delay( int64_t );
 
-    Q_INVOKABLE void toggleMute();
 
-    Q_INVOKABLE QString description( unsigned idx);
+    VLC::MediaPlayer& player()
+        { assert( m_player ); return *m_player; }
 
 Q_SIGNALS:
     void muteChanged();
     void volumeChanged();
 
-protected:
-    void audio_event( vlc::audio_event_e e ) override;
-
 private:
-    vlc::player_core& m_player;
+    std::shared_ptr<VLC::MediaPlayer> m_player;
+
+    VLC::EventManager::RegisteredEvent h_onMuted;
+    VLC::EventManager::RegisteredEvent h_onAudioVolume;
 };

@@ -27,14 +27,19 @@
 
 #include <QObject>
 
-#include <vlc/vlc.h>
+#include <libvlcpp/vlcpp/vlc.hpp>
 
 //this class is not thread safe
 class QmlVlcConfig
     : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY (bool logging READ getlogging WRITE setlogging NOTIFY loggingChanged)
+
 public:
+
+    Q_INVOKABLE void enableLogging( bool enable ) { setlogging(enable); }
+
     static QmlVlcConfig& instance();
 
     void setNetworkCacheTime( int time );
@@ -42,6 +47,7 @@ public:
     void enableMarqueeFilter( bool enable );
     void enableLogoFilter( bool enable );
     void enableDebug( bool enable );
+    void enableFecLog( bool enable );
     void enableNoVideoTitleShow( bool enable );
     void enableHardwareAcceleration( bool enable );
 
@@ -50,25 +56,46 @@ public:
 
     bool isOptionTrusted( const QString& ) const;
 
-    libvlc_instance_t* createLibvlcInstance();
-    void releaseLibvlcInstance( libvlc_instance_t* );
+    int getlogging() const {
+        return _fecLog;
+    }
+
+    void setlogging(bool val)
+    {
+        _fecLog = val;
+        emit loggingChanged(val);
+    }
+
+
+    VLC::Instance * createLibvlcInstance();
+    VLC::Instance& getLibvlcInstance() { return *_libvlc; };
+    void releaseLibvlcInstance( VLC::Instance * );
+
+
+signals:
+    void loggingChanged(int newValue);
+
 
 private:
-    QmlVlcConfig();
+    QmlVlcConfig( QObject* parent = 0 );
     ~QmlVlcConfig();
 
     QmlVlcConfig( QmlVlcConfig& ) = delete;
     QmlVlcConfig& operator= ( QmlVlcConfig& ) = delete;
 
 private:
+    QmlVlcConfig *m_pInstance;
+
     int _networkCacheTime;
     bool _adjustFilter;
     bool _marqueeFilter;
     bool _logoFilter;
     bool _debug;
+    bool _fecLog;
     bool _noVideoTitleShow;
     bool _hardwareAcceleration;
     bool _trustedEnvironment;
     unsigned _libvlcCounter;
-    libvlc_instance_t* _libvlc;
+
+    VLC::Instance * _libvlc;
 };

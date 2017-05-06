@@ -27,18 +27,18 @@
 
 #include <QObject>
 
-#include "libvlc_wrapper/vlc_player.h"
+#include <libvlcpp/vlcpp/vlc.hpp>
 
 class QmlVlcDeinterlace : public QObject
 {
     Q_OBJECT
 public:
-    QmlVlcDeinterlace( vlc::player_core& player )
+    QmlVlcDeinterlace( VLC::Media& player )
         : m_player( player ) { }
 
     Q_INVOKABLE void enable( const QString& mode );
     Q_INVOKABLE void disable();
 
 private:
-    vlc::player_core& m_player;
+    VLC::Media& m_player;
 };

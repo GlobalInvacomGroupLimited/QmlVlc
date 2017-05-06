@@ -27,13 +27,13 @@
 
 #include <QObject>
 
-#include "libvlc_wrapper/vlc_player.h"
+#include <libvlcpp/vlcpp/vlc.hpp>
 
 class QmlVlcLogo : public QObject
 {
     Q_OBJECT
 public:
-    QmlVlcLogo( vlc::player_core& player )
+    QmlVlcLogo( VLC::Media& player )
         : m_player( player ) { }
 
     Q_PROPERTY( QString position READ get_position WRITE set_position )
@@ -83,5 +83,5 @@ private:
     void set_logo_int( libvlc_video_logo_option_t, int i );
 
 private:
-    vlc::player_core& m_player;
+    VLC::Media& m_player;
 };

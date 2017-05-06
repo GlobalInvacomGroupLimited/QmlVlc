@@ -33,13 +33,13 @@
 #include <QByteArray>
 #include <QLinkedList>
 
-#include "libvlc_wrapper/vlc_player.h"
+#include <libvlcpp/vlcpp/vlc.hpp>
 
 class QmlVlcSubtitle : public QObject
 {
     Q_OBJECT
 public:
-    QmlVlcSubtitle( vlc::player_core& player );
+    QmlVlcSubtitle( VLC::Media& player );
 
     enum Type {
         Microdvd    = 0,
@@ -99,7 +99,7 @@ private:
     bool loadFromFile( QTemporaryFile* );
 
 private:
-    vlc::player_core& m_player;
+    VLC::Media& m_player;
     QNetworkAccessManager m_networkManager;
     QNetworkReply* m_networkReply;
     QScopedPointer<QTemporaryDir> m_subtitlesDir;

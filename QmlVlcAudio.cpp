@@ -25,115 +25,113 @@
 
 #include "QmlVlcAudio.h"
 
-QmlVlcAudio::QmlVlcAudio( vlc::player_core& player )
-    : m_player( player )
+QmlVlcAudio::QmlVlcAudio( )
+    : m_player( nullptr )
+{ }
+
+
+void QmlVlcAudio::classBegin( const std::shared_ptr<VLC::MediaPlayer>& n_player )
 {
-    m_player.audio().register_callback( this );
+    m_player = n_player;
+
+    auto em = player().eventManager();
+
+    h_onMuted       = em.onMuted(       [this](){ Q_EMIT muteChanged();   } );
+    h_onAudioVolume = em.onAudioVolume( [this](float){ Q_EMIT volumeChanged(); } );
 }
+
+void QmlVlcAudio::classEnd()
+{
+    auto em =  player().eventManager();
+
+    em.unregister( h_onMuted, h_onAudioVolume  );
+}
+
 
 QmlVlcAudio::~QmlVlcAudio()
-{
-    m_player.audio().unregister_callback( this );
-}
+{ }
 
-void QmlVlcAudio::audio_event( vlc::audio_event_e e )
-{
-    switch( e ) {
-        case vlc::audio_event_e::mute_changed:
-            Q_EMIT muteChanged();
-            break;
-        case vlc::audio_event_e::volume_changed:
-            Q_EMIT volumeChanged();
-            break;
-        default:
-            assert( false );
-    }
-}
 
 unsigned QmlVlcAudio::get_trackCount()
 {
-    return m_player.audio().track_count();
+    return  player().audioTrackCount();
 }
 
 bool QmlVlcAudio::get_mute()
 {
-    return m_player.audio().is_muted();
+    return  player().mute();
 }
 
-void QmlVlcAudio::set_mute( bool m )
+void QmlVlcAudio::set_mute( bool mute )
 {
-    m_player.audio().set_mute( m );
+     player().setMute( mute );
+}
+
+void QmlVlcAudio::toggleMute()
+{
+     player().toggleMute();
 }
 
 unsigned int QmlVlcAudio::get_volume()
 {
-    return m_player.audio().get_volume();
+    return  player().volume();
 }
 
-void QmlVlcAudio::set_volume( unsigned int vol )
+void QmlVlcAudio::set_volume( unsigned int v )
 {
-    m_player.audio().set_volume( vol );
+    player().setVolume( v );
 }
 
 int QmlVlcAudio::get_track()
 {
-    return m_player.audio().get_track();
+     return player().audioTrack();
 }
+
 
 void QmlVlcAudio::set_track( int idx )
 {
     if( idx < 0 )
         return;
 
-    m_player.audio().set_track( idx );
+     player().setAudioTrack( idx );
 }
 
 QmlVlcAudio::Output QmlVlcAudio::get_channel()
 {
-    return static_cast<Output>( m_player.audio().get_channel() );
+    return static_cast<Output>(  player().channel() );
 }
 
 void QmlVlcAudio::set_channel( QmlVlcAudio::Output ch )
 {
-    m_player.audio().set_channel( static_cast<libvlc_audio_output_channel_t>( ch ) );
+     player().setChannel( static_cast<int>( ch ) );
 }
 
-void QmlVlcAudio::toggleMute()
-{
-    m_player.audio().toggle_mute();
-}
-
-QString QmlVlcAudio::description( unsigned int trackID )
+QString QmlVlcAudio::description( signed int trackID )
 {
     QString track_name;
 
-    libvlc_track_description_t* root_track_desc =
-        libvlc_audio_get_track_description( m_player.get_mp() );
-    if( !root_track_desc )
-        return track_name;
+    std::vector<VLC::TrackDescription> trackList =  player().audioTrackDescription();
 
-    unsigned int tc = m_player.audio().track_count();
-    if( tc && trackID < tc ) {
-        libvlc_track_description_t* track_desc = root_track_desc;
-        for( ; trackID && track_desc ; --trackID ){
-            track_desc = track_desc->p_next;
-        }
 
-        if ( track_desc && track_desc->psz_name ) {
-            track_name = track_desc->psz_name;
+    for( std::vector<VLC::TrackDescription>::iterator it = trackList.begin() ; it != trackList.end(); ++it )
+    {
+
+        if( (*it).id() == trackID )
+        {
+            track_name = QString::fromStdString( (*it).name() );
+            break;
         }
     }
-    libvlc_track_description_list_release( root_track_desc );
 
     return track_name;
 }
 
-int QmlVlcAudio::get_delay()
+int64_t QmlVlcAudio::get_delay()
 {
-    return m_player.audio().get_delay();
+    return  player().audioDelay();
 }
 
-void QmlVlcAudio::set_delay( int delay )
+void QmlVlcAudio::set_delay( int64_t delay )
 {
-    m_player.audio().set_delay( delay );
+     player().setAudioDelay( delay );
 }

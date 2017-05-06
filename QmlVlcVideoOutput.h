@@ -27,6 +27,7 @@
 
 #include <cassert>
 #include <memory>
+#include <deque>
 
 #include <QQmlParserStatus>
 
@@ -36,8 +37,7 @@
 #endif
 
 #ifndef Q_MOC_RUN
-#include "libvlc_wrapper/vlc_player.h"
-#include "libvlc_wrapper/vlc_vmem.h"
+#include <libvlcpp/vlcpp/vlc.hpp>
 #endif // Q_MOC_RUN
 
 #include "QmlVlcVideoFrame.h"
@@ -45,13 +45,13 @@
 class QmlVlcVideoSurface; //#include "QmlVlcVideoSurface.h"
 
 class QmlVlcVideoOutput
-    : public QObject,
-      private vlc::basic_vmem_wrapper
+    : public QObject
 {
     Q_OBJECT
 public:
-    explicit QmlVlcVideoOutput( const std::shared_ptr<vlc::player_core>& player,
-                                QObject* parent = 0 );
+    explicit QmlVlcVideoOutput( QObject* parent = 0 );
+
+    void classBegin( const std::shared_ptr<VLC::MediaPlayer>& player );
     void init();
     ~QmlVlcVideoOutput();
 
@@ -95,7 +95,7 @@ private:
     //end (for libvlc_video_set_callbacks)
 
 private:
-    std::shared_ptr<vlc::player_core> m_player;
+    std::shared_ptr<VLC::MediaPlayer> m_player;
 
     QList<QmlVlcVideoSurface*> m_attachedSurfaces;
 

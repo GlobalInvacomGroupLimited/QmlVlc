@@ -36,6 +36,8 @@ public:
     explicit QmlVlcPlayer( QObject* parent = 0 );
     ~QmlVlcPlayer();
 
+    void classBegin() override;
+
 private:
-    libvlc_instance_t* m_libvlc;
+    VLC::Instance* m_libvlc;
 };

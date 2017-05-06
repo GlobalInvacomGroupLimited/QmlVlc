@@ -25,18 +25,18 @@
 
 #include "QmlVlcVideoSource.h"
 
-QmlVlcVideoSource::QmlVlcVideoSource( const std::shared_ptr<vlc::player_core>& player, QObject* parent )
-    : QObject( parent ), m_videoOutput( new QmlVlcVideoOutput( player ) )
+QmlVlcVideoSource::QmlVlcVideoSource(QObject* parent )
+    : QObject( parent ), m_videoOutput( nullptr )
 {
 }
 
-void QmlVlcVideoSource::classBegin()
+void QmlVlcVideoSource::classBegin( const std::shared_ptr<VLC::MediaPlayer>& player )
 {
+    m_videoOutput.reset( new QmlVlcVideoOutput( parent() ) );
+
+    m_videoOutput->classBegin( player );
+
     m_videoOutput->init();
-}
-
-void QmlVlcVideoSource::componentComplete()
-{
 }
 
 void QmlVlcVideoSource::registerVideoSurface( QmlVlcVideoSurface* s )

@@ -29,6 +29,17 @@
 
 #include "QmlVlcVideoSurface.h"
 
+unsigned video_format_stub(char*, uint32_t*, uint32_t*, uint32_t*, uint32_t*)
+{
+    return 0;
+}
+
+void* video_fb_lock_stub( void** planes )
+{
+    planes[0] = planes[1] = planes[3] = 0;
+    return 0;
+}
+
 #ifdef QMLVLC_QTMULTIMEDIA_ENABLE
 class MmVideoBuffer : public QAbstractVideoBuffer
 {
@@ -83,26 +94,48 @@ void MmVideoBuffer::unmap()
 }
 #endif
 
-QmlVlcVideoOutput::QmlVlcVideoOutput( const std::shared_ptr<vlc::player_core>& player,
-                                      QObject* parent /*= 0*/ )
-    : QObject( parent ), m_player( player )
+QmlVlcVideoOutput::QmlVlcVideoOutput( QObject* parent )
+    : QObject( parent ), m_player( nullptr )
 #ifdef QMLVLC_QTMULTIMEDIA_ENABLE
     , m_videoSurface( nullptr )
 #endif
 {
 }
 
+
+void QmlVlcVideoOutput::classBegin( const std::shared_ptr<VLC::MediaPlayer>& player )
+{
+    m_player = player;
+}
+
+
+
 void QmlVlcVideoOutput::init()
 {
-    assert( m_player && m_player->is_open() );
-    vlc::basic_vmem_wrapper::open( &( m_player->basic_player() ) );
+    m_player->setVideoFormatCallbacks(
+                [this]( char* chroma, uint32_t* width, uint32_t* height, uint32_t* pitches, uint32_t* lines ) {
+                    return video_format_cb( chroma, width, height, pitches, lines );
+                },
+                [this]() {
+                    video_cleanup_cb();
+                } );
+
+    m_player->setVideoCallbacks(
+                [this](void** pp_buff) {
+                    return video_lock_cb( pp_buff );
+                },
+                [this](void* picture, void *const * planes ) {
+                    video_unlock_cb( picture, planes );
+                },
+                [this](void* picture) {
+                    this->video_display_cb( picture );
+                } );
 }
 
 QmlVlcVideoOutput::~QmlVlcVideoOutput()
 {
-    //we should force closing vmem here,
-    //to avoid pure virtual member call in vlc::basic_vmem_wrapper
-    vlc::basic_vmem_wrapper::close();
+    m_player->setVideoFormatCallbacks( video_format_stub, nullptr );
+    m_player->setVideoCallbacks( video_fb_lock_stub, nullptr, nullptr);
 }
 
 std::shared_ptr<QmlVlcI420Frame> cloneFrame( const std::shared_ptr<QmlVlcI420Frame>& from )
