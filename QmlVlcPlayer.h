@@ -33,10 +33,11 @@ class QmlVlcPlayer
     Q_OBJECT
 
 public:
-    explicit QmlVlcPlayer( QObject* parent = 0 );
+     QmlVlcPlayer( QObject* parent = 0 );
     ~QmlVlcPlayer();
 
-    void classBegin() override;
+    using QmlVlcPlayerProxy::classBegin;
+    virtual void classBegin() override;
 
 private:
     VLC::Instance* m_libvlc;

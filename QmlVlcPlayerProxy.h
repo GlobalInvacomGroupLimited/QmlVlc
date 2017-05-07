@@ -44,7 +44,8 @@ class QmlVlcPlayerProxy
     Q_OBJECT
 
 protected:
-    virtual void classBegin( const std::shared_ptr<VLC::MediaPlayer>& player );
+    using::QmlVlcVideoSource::classBegin;
+    virtual void classBegin( const std::shared_ptr<VLC::MediaPlayer>& player ) override;
     virtual void componentComplete() override;
     void classEnd();
 

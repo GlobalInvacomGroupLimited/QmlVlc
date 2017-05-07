@@ -46,7 +46,8 @@ class QmlVlcVideoSource
 public:
     QmlVlcVideoSource( QObject* parent );
 
-    void classBegin( const std::shared_ptr<VLC::MediaPlayer>& player );
+    using QQmlParserStatus::classBegin;
+    virtual void classBegin( const std::shared_ptr<VLC::MediaPlayer>& player );
 
     virtual void registerVideoSurface( QmlVlcVideoSurface* );
     virtual void unregisterVideoSurface( QmlVlcVideoSurface* );
