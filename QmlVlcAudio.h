@@ -53,6 +53,8 @@ public:
 
     Q_PROPERTY( unsigned count READ get_trackCount )
 
+    Q_PROPERTY( int  audiotrack   READ get_audiotrack NOTIFY audioTrackAdded )
+
     Q_PROPERTY( int      track  READ get_track   WRITE set_track )
     Q_PROPERTY( bool     mute   READ get_mute    WRITE set_mute   NOTIFY muteChanged )
     Q_PROPERTY( unsigned volume READ get_volume  WRITE set_volume NOTIFY volumeChanged )
@@ -64,6 +66,8 @@ public:
     Q_INVOKABLE QString description( signed idx );
 
     unsigned get_trackCount();
+
+    int get_audiotrack();
 
     bool get_mute();
     void set_mute( bool );
@@ -88,10 +92,14 @@ public:
 Q_SIGNALS:
     void muteChanged();
     void volumeChanged();
+    void audioTrackAdded();
 
 private:
     std::shared_ptr<VLC::MediaPlayer> m_player;
 
     VLC::EventManager::RegisteredEvent h_onMuted;
     VLC::EventManager::RegisteredEvent h_onAudioVolume;
+    VLC::EventManager::RegisteredEvent h_ESAdded;
+
+    std::vector<int> audioTrackList;
 };

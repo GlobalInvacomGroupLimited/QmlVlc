@@ -34,22 +34,37 @@ void QmlVlcAudio::classBegin( const std::shared_ptr<VLC::MediaPlayer>& n_player 
 {
     m_player = n_player;
 
-    auto em = player().eventManager();
+    h_onMuted       = player().eventManager().onMuted(       [this](){      Q_EMIT muteChanged();   } );
+    h_onAudioVolume = player().eventManager().onAudioVolume( [this](float){ Q_EMIT volumeChanged(); } );
 
-    h_onMuted       = em.onMuted(       [this](){ Q_EMIT muteChanged();   } );
-    h_onAudioVolume = em.onAudioVolume( [this](float){ Q_EMIT volumeChanged(); } );
+    h_ESAdded = player().eventManager().onESAdded( [this](libvlc_track_type_t trackType, int id) {
+            if( trackType == libvlc_track_audio )
+            {
+                audioTrackList.push_back(id);
+                Q_EMIT audioTrackAdded();
+             } });
 }
 
 void QmlVlcAudio::classEnd()
 {
     auto em =  player().eventManager();
 
-    em.unregister( h_onMuted, h_onAudioVolume  );
+    em.unregister( h_onMuted, h_onAudioVolume, h_ESAdded  );
 }
 
 
 QmlVlcAudio::~QmlVlcAudio()
 { }
+
+int QmlVlcAudio::get_audiotrack()
+{
+    if ( audioTrackList.size() > 0 )
+    {
+         return audioTrackList[0];
+    }
+
+    return -1;
+}
 
 
 unsigned QmlVlcAudio::get_trackCount()
@@ -64,7 +79,14 @@ bool QmlVlcAudio::get_mute()
 
 void QmlVlcAudio::set_mute( bool mute )
 {
-     player().setMute( mute );
+     if (mute && ( audioTrackList.size() > 0 ) )
+     {
+         player().setAudioTrack(-1);
+     }
+     else if( ( audioTrackList.size() > 0 ) )
+     {
+         player().setAudioTrack( audioTrackList[0] );
+     }
 }
 
 void QmlVlcAudio::toggleMute()
