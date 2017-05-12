@@ -29,8 +29,7 @@
 
 #include <libvlcpp/vlcpp/vlc.hpp>
 
-class QmlVlcAudio
-    : public QObject//,
+class QmlVlcAudio : public QObject
 {
     Q_OBJECT
 public:

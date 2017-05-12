@@ -28,26 +28,17 @@
 #include "QmlVlcConfig.h"
 
 QmlVlcPlayer::QmlVlcPlayer( QObject* parent )
-    : QmlVlcPlayerProxy( parent ), m_libvlc( nullptr )
+    : QmlVlcPlayerProxy( parent )
 { }
 
 void QmlVlcPlayer::classBegin()
 {
-    // Create an instance of libVLC
-    m_libvlc = QmlVlcConfig::instance( ).createLibvlcInstance( );
-
-    auto player = std::make_shared<VLC::MediaPlayer>( *(m_libvlc  ) );
-
-    QmlVlcPlayerProxy::classBegin( player );
+    QmlVlcPlayerProxy::classBegin( );
 }
 
 QmlVlcPlayer::~QmlVlcPlayer()
 {
     classEnd();
 
-    stop();
-    if( m_libvlc ) {
-        QmlVlcConfig::instance().releaseLibvlcInstance( m_libvlc );
-        m_libvlc = 0;
-    }
+    play( false );
 }

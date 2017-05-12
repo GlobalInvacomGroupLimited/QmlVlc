@@ -38,14 +38,13 @@
 //#include "QmlVlcVideo.h"
 //#include "QmlVlcMedia.h"
 
-class QmlVlcPlayerProxy
-        : public QmlVlcVideoSource
+class QmlVlcPlayerProxy : public QmlVlcVideoSource
 {
     Q_OBJECT
 
 protected:
     using::QmlVlcVideoSource::classBegin;
-    virtual void classBegin( const std::shared_ptr<VLC::MediaPlayer>& player ) override;
+    virtual void classBegin( ) override;
     virtual void componentComplete() override;
     void classEnd();
 
@@ -55,21 +54,8 @@ public:
 
     Q_PROPERTY( QString vlcVersion READ get_vlcVersion )
 
-    Q_PROPERTY( bool playing READ get_playing NOTIFY playingChanged )
+    Q_PROPERTY( bool playing READ get_playing )
     Q_PROPERTY( double length READ get_length NOTIFY mediaPlayerLengthChanged )
-
-    enum State {
-        NothingSpecial = ::libvlc_NothingSpecial,
-        Opening        = ::libvlc_Opening,
-        Buffering      = ::libvlc_Buffering,
-        Playing        = ::libvlc_Playing,
-        Paused         = ::libvlc_Paused,
-        Stopped        = ::libvlc_Stopped,
-        Ended          = ::libvlc_Ended,
-        Error          = ::libvlc_Error,
-    };
-    Q_ENUMS( State )
-    Q_PROPERTY( State state READ get_state NOTIFY stateChanged )
 
     Q_PROPERTY( QString mrl     READ get_mrl      WRITE set_mrl )
     Q_PROPERTY( double position READ get_position WRITE set_position NOTIFY mediaPlayerPositionChanged )
@@ -84,18 +70,15 @@ public:
 
 Q_SIGNALS:
     void playingChanged();
-    void stateChanged( QmlVlcPlayerProxy::State state );
 
 public:
     //QML Api
     QString get_vlcVersion();
 
-    Q_INVOKABLE void play( const QString& mrl );
-    Q_INVOKABLE void play();
+    Q_INVOKABLE void play( bool );
     Q_INVOKABLE void pause();
     Q_INVOKABLE void unpause();
     Q_INVOKABLE void togglePause();
-    Q_INVOKABLE void stop();
 
     QString get_mrl();
     void set_mrl( const QString& mrl );
@@ -112,8 +95,6 @@ public:
 
     unsigned int get_volume();
     void set_volume( unsigned int );
-
-    State get_state();
 
     VLC::MediaPlayer& player()
         { assert( m_player ); return *m_player; }
@@ -144,11 +125,6 @@ Q_SIGNALS:
 
     void volumeChanged();
 
-protected:
-    //void media_player_event( const libvlc_event_t* e ) override;
-
-    //bool event( QEvent* ) override;
-
 private Q_SLOTS:
     void currentItemEndReached();
 
@@ -160,7 +136,9 @@ public:
     //QmlVlcVideo*     get_video()     { return &m_video;            }
     //QmlVlcMedia*     get_mediaDesc() { return &m_currentMediaDesc; }
 
+
 private:
+    VLC::Instance* m_libvlc;
     std::shared_ptr<VLC::MediaPlayer> m_player;
 
     QmlVlcAudio        m_audio;
@@ -169,6 +147,12 @@ private:
     //QmlVlcSubtitle     m_subtitle;
     //QmlVlcVideo        m_video;
     //QmlVlcCurrentMedia m_currentMediaDesc;
+
+    VLC::EventManager::RegisteredEvent h_onPlaying;
+    VLC::EventManager::RegisteredEvent h_onStopped;
+
+
+    bool playing;
 
     QTimer m_errorTimer;
 };

@@ -30,8 +30,7 @@
 #include <libvlcpp/vlcpp/vlc.hpp>
 
 //this class is not thread safe
-class QmlVlcConfig
-    : public QObject
+class QmlVlcConfig : public QObject
 {
     Q_OBJECT
     Q_PROPERTY (bool logging READ getlogging WRITE setlogging NOTIFY loggingChanged)
@@ -39,6 +38,8 @@ class QmlVlcConfig
 public:
 
     Q_INVOKABLE void enableLogging( bool enable ) { setlogging(enable); }
+
+    Q_INVOKABLE bool createLibvlcInstance();
 
     static QmlVlcConfig& instance();
 
@@ -67,8 +68,8 @@ public:
     }
 
 
-    VLC::Instance * createLibvlcInstance();
-    VLC::Instance& getLibvlcInstance() { return *_libvlc; };
+
+    VLC::Instance* getLibvlcInstance();
     void releaseLibvlcInstance( VLC::Instance * );
 
 
@@ -84,8 +85,6 @@ private:
     QmlVlcConfig& operator= ( QmlVlcConfig& ) = delete;
 
 private:
-    QmlVlcConfig *m_pInstance;
-
     int _networkCacheTime;
     bool _adjustFilter;
     bool _marqueeFilter;

@@ -3,8 +3,6 @@ HEADERS += \
     $$PWD/QmlVlcConfig.h \
     $$PWD/QmlVlcPlayerProxy.h \
     $$PWD/QmlVlcPlayer.h \
-    $$PWD/QmlVlcVideoSurface.h \
-    $$PWD/SGVlcVideoNode.h \
     $$PWD/QmlVlcVideoSource.h \
     $$PWD/QmlVlcVideoOutput.h \
     $$PWD/QmlVlcVideoFrame.h \
@@ -34,15 +32,9 @@ SOURCES += \
     $$PWD/QmlVlcConfig.cpp \
     $$PWD/QmlVlcPlayerProxy.cpp \
     $$PWD/QmlVlcPlayer.cpp \
-    $$PWD/QmlVlcVideoSurface.cpp \
-    $$PWD/SGVlcVideoNode.cpp \
     $$PWD/QmlVlcVideoSource.cpp \
     $$PWD/QmlVlcVideoOutput.cpp \
     $$PWD/QmlVlcVideoFrame.cpp \
     $$PWD/QmlVlcAudio.cpp
-
-contains( QT, multimedia ) {
-    DEFINES += QMLVLC_QTMULTIMEDIA_ENABLE
-}
 
 INCLUDEPATH += $$PWD

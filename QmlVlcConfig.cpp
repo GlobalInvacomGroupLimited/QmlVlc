@@ -142,12 +142,12 @@ bool QmlVlcConfig::isOptionTrusted( const QString& opt ) const
     return true;
 }
 
-VLC::Instance* QmlVlcConfig::createLibvlcInstance()
+bool QmlVlcConfig::createLibvlcInstance()
 {
     Q_ASSERT( ( _libvlcCounter && _libvlc ) || ( !_libvlcCounter && !_libvlc ) );
     if( _libvlc ) {
         ++_libvlcCounter;
-        return _libvlc;
+        return true;
     }
 
     QVector<const char*> opts;
@@ -204,12 +204,23 @@ VLC::Instance* QmlVlcConfig::createLibvlcInstance()
 
    if( _libvlc == nullptr ) {
         qCritical( "Couldn't create libvlc instance. Check vlc plugins dir." );
+        return false;
     }
 
     _libvlcCounter = 1;
 
+    return true;
+}
+
+
+VLC::Instance *QmlVlcConfig::getLibvlcInstance()
+{
+    //Q_ASSERT( ( _libvlcCounter && _libvlc ) || ( !_libvlcCounter && !_libvlc ) );
+    createLibvlcInstance();
+
     return _libvlc;
 }
+
 
 void QmlVlcConfig::releaseLibvlcInstance( VLC::Instance* libvlc )
 {

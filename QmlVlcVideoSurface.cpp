@@ -29,7 +29,7 @@
 #include "SGVlcVideoNode.h"
 
 QmlVlcVideoSurface::QmlVlcVideoSurface()
-    : m_fillMode( PreserveAspectFit ), m_aspectRatio( R_16_9 ), m_source( nullptr ), m_frameUpdated( false )
+    : m_fillMode( PreserveAspectFit ), m_aspectRatio( R_16_9 ), m_cropRatio( R_16_9 ), m_source( nullptr ), m_frameUpdated( false ), m_frame( nullptr )
 {
     setFlag( QQuickItem::ItemHasContents, true );
 }

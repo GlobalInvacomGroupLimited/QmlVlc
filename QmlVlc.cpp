@@ -95,9 +95,6 @@ void RegisterQmlVlcPlayer()
     //    "VlcMediaDesc",
     //    QStringLiteral("VlcMediaDesc cannot be instantiated directly") );
 
-    qmlRegisterType<QmlVlcVideoSurface>(
-        qmlVlcUri, QmlVlcVersionMajor, QmlVlcVersionMinor,
-        "VlcVideoSurface" );
     qmlRegisterType<QmlVlcPlayer>(
         qmlVlcUri, QmlVlcVersionMajor, QmlVlcVersionMinor,
         "VlcPlayer" );

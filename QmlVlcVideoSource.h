@@ -36,9 +36,7 @@
 
 class QmlVlcVideoSurface;
 
-class QmlVlcVideoSource
-    : public QObject,
-      public QQmlParserStatus
+class QmlVlcVideoSource : public QObject, public QQmlParserStatus
 {
     Q_OBJECT
     Q_INTERFACES( QQmlParserStatus )
@@ -49,15 +47,15 @@ public:
     using QQmlParserStatus::classBegin;
     virtual void classBegin( const std::shared_ptr<VLC::MediaPlayer>& player );
 
-    virtual void registerVideoSurface( QmlVlcVideoSurface* );
-    virtual void unregisterVideoSurface( QmlVlcVideoSurface* );
-
-#ifdef QMLVLC_QTMULTIMEDIA_ENABLE
     Q_PROPERTY( QAbstractVideoSurface* videoSurface READ videoSurface WRITE setVideoSurface )
 
     QAbstractVideoSurface* videoSurface() const;
     void setVideoSurface( QAbstractVideoSurface* s );
-#endif
+
+signals:
+    void displayedFrames();
+
+
 
 private:
     QScopedPointer<QmlVlcVideoOutput> m_videoOutput;

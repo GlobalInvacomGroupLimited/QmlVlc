@@ -31,10 +31,8 @@
 
 #include <QQmlParserStatus>
 
-#ifdef QMLVLC_QTMULTIMEDIA_ENABLE
 #include <QVideoSurfaceFormat>
 #include <QAbstractVideoSurface>
-#endif
 
 #ifndef Q_MOC_RUN
 #include <libvlcpp/vlcpp/vlc.hpp>
@@ -42,10 +40,7 @@
 
 #include "QmlVlcVideoFrame.h"
 
-class QmlVlcVideoSurface; //#include "QmlVlcVideoSurface.h"
-
-class QmlVlcVideoOutput
-    : public QObject
+class QmlVlcVideoOutput : public QObject
 {
     Q_OBJECT
 public:
@@ -55,30 +50,23 @@ public:
     void init();
     ~QmlVlcVideoOutput();
 
-    void registerVideoSurface( QmlVlcVideoSurface* s );
-    void unregisterVideoSurface( QmlVlcVideoSurface* s );
-
-    QList<QmlVlcVideoSurface*> attachedSurfaces() const
-        { return m_attachedSurfaces; }
-
     std::shared_ptr<const QmlVlcI420Frame> renderFrame() const
         { return m_renderFrame; }
 
-#ifdef QMLVLC_QTMULTIMEDIA_ENABLE
     QAbstractVideoSurface* videoSurface() const
         { return m_videoSurface; }
     void setVideoSurface( QAbstractVideoSurface* s );
-#endif
+
+signals:
+    void framesDisplayed();
 
 private:
     Q_INVOKABLE void frameUpdated();
 
-#ifdef QMLVLC_QTMULTIMEDIA_ENABLE
     Q_INVOKABLE void updateSurfaceFormat( const QVideoSurfaceFormat& newFormat );
     Q_INVOKABLE void cleanupVideoSurface();
 
     void initVideoSurface( const QVideoSurfaceFormat& format );
-#endif
 
 private:
     //for libvlc_video_set_format_callbacks
@@ -97,14 +85,13 @@ private:
 private:
     std::shared_ptr<VLC::MediaPlayer> m_player;
 
-    QList<QmlVlcVideoSurface*> m_attachedSurfaces;
-
     std::deque<std::shared_ptr<QmlVlcI420Frame> > m_frames;
     std::list<std::shared_ptr<QmlVlcI420Frame> > m_lockedFrames;
     std::shared_ptr<QmlVlcI420Frame> m_renderFrame;
 
-#ifdef QMLVLC_QTMULTIMEDIA_ENABLE
     QVideoSurfaceFormat m_surfaceFormat;
     QAbstractVideoSurface* m_videoSurface;
-#endif
+
+    int frameCounter;
+    bool emitframesDisplayed;
 };

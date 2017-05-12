@@ -26,7 +26,7 @@
 #include "QmlVlcAudio.h"
 
 QmlVlcAudio::QmlVlcAudio( )
-    : m_player( nullptr )
+    : m_player( nullptr ), h_onMuted( nullptr ), h_onAudioVolume( nullptr ), h_ESAdded( nullptr )
 { }
 
 
@@ -79,13 +79,14 @@ bool QmlVlcAudio::get_mute()
 
 void QmlVlcAudio::set_mute( bool mute )
 {
-     if (mute && ( audioTrackList.size() > 0 ) )
+     if ( mute && ( audioTrackList.size() > 0 ) )
      {
          player().setAudioTrack(-1);
      }
      else if( ( audioTrackList.size() > 0 ) )
      {
          player().setAudioTrack( audioTrackList[0] );
+         player().setMute(false);
      }
 }
 

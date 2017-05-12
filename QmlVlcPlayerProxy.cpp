@@ -30,11 +30,9 @@
 #include <QDebug>
 #include <QCoreApplication>
 
-QmlVlcPlayerProxy::QmlVlcPlayerProxy( QObject* parent )
-    : QmlVlcVideoSource( parent ), m_player( nullptr )
+QmlVlcPlayerProxy::QmlVlcPlayerProxy( QObject* parent ) : QmlVlcVideoSource( parent ),
+    m_player( nullptr ), h_onPlaying( nullptr ), h_onStopped( nullptr ), playing( false )
 {
-    qRegisterMetaType<QmlVlcPlayerProxy::State>( "QmlVlcPlayerProxy::State" );
-
     m_errorTimer.setInterval( 1000 );
     m_errorTimer.setSingleShot( true );
 
@@ -57,14 +55,31 @@ QmlVlcPlayerProxy::QmlVlcPlayerProxy( QObject* parent )
     //         this, SIGNAL( volumeChanged() ) );
 }
 
-void QmlVlcPlayerProxy::classBegin( const std::shared_ptr<VLC::MediaPlayer>& player )
+void QmlVlcPlayerProxy::classBegin( )
 {
-    //player().register_callback( this );
-    m_player   = player;
+    // Get the instance of libVLC
+    m_libvlc = QmlVlcConfig::instance( ).getLibvlcInstance( );
 
-    m_audio.classBegin(player);
+    auto n_player = std::make_shared<VLC::MediaPlayer>( *(m_libvlc  ) );
 
-    QmlVlcVideoSource::classBegin( player );
+    m_player   = n_player;
+
+    h_onPlaying = player().eventManager().onPlaying( [this](){
+        if( playing == false ) {
+            playing = true;
+            Q_EMIT playingChanged();
+        } } );
+
+    h_onStopped = player().eventManager().onStopped( [this](){
+        if( playing == true ) {
+            playing = false;
+            Q_EMIT playingChanged();
+        } } );
+
+
+    m_audio.classBegin(n_player);
+
+    QmlVlcVideoSource::classBegin( n_player );
 }
 
 void QmlVlcPlayerProxy::componentComplete()
@@ -74,11 +89,21 @@ void QmlVlcPlayerProxy::componentComplete()
 void QmlVlcPlayerProxy::classEnd()
 {
     m_audio.classEnd();
+
+    auto em =  player().eventManager();
+
+    em.unregister( h_onPlaying, h_onStopped );
+
 }
 
 QmlVlcPlayerProxy::~QmlVlcPlayerProxy()
 {
     classEnd();
+
+    if( m_libvlc ) {
+        QmlVlcConfig::instance().releaseLibvlcInstance( m_libvlc );
+        m_libvlc = 0;
+    }
 }
 
 void QmlVlcPlayerProxy::currentItemEndReached()
@@ -91,20 +116,12 @@ QString QmlVlcPlayerProxy::get_vlcVersion()
     return QString::fromLatin1( libvlc_get_version() );
 }
 
-void QmlVlcPlayerProxy::play( const QString& mrl )
+void QmlVlcPlayerProxy::play( bool play )
 {
-    VLC::MediaPlayer& p = player();
-
-    auto media = VLC::Media( QmlVlcConfig::instance().getLibvlcInstance(), mrl.toUtf8().constData(), VLC::Media::FromLocation );
-
-    p.setMedia( media );
-
-    p.play();
-}
-
-void QmlVlcPlayerProxy::play()
-{
-    player().play();
+    if( play )
+        player().play();
+    else
+        player().stop();
 }
 
 void QmlVlcPlayerProxy::pause()
@@ -122,25 +139,30 @@ void QmlVlcPlayerProxy::togglePause()
     player().pause();
 }
 
-void QmlVlcPlayerProxy::stop()
-{
-    player().stop();
-}
-
 QString QmlVlcPlayerProxy::get_mrl()
 {
-    std::string mrl = player().media()->mrl();
-    return QString::fromUtf8( mrl.data(), mrl.size() );
+    if( player().media() != nullptr ) {
+        std::string mrl = player().media()->mrl();
+        return QString::fromUtf8( mrl.data(), mrl.size() );
+    }
+    else {
+        return "";
+    }
+
 }
 
 void QmlVlcPlayerProxy::set_mrl( const QString& mrl )
 {
-    play( mrl );
+    VLC::MediaPlayer& p = player();
+
+    auto media = VLC::Media( *m_libvlc, mrl.toUtf8().constData(), VLC::Media::FromLocation );
+
+    p.setMedia( media );
 }
 
 bool QmlVlcPlayerProxy::get_playing()
 {
-    return player().isPlaying();
+    return playing;
 }
 
 double QmlVlcPlayerProxy::get_length()
@@ -166,9 +188,4 @@ double QmlVlcPlayerProxy::get_time()
 void QmlVlcPlayerProxy::set_time( double t )
 {
     player().setTime( static_cast<libvlc_time_t>( t ) );
-}
-
-QmlVlcPlayerProxy::State QmlVlcPlayerProxy::get_state()
-{
-    return static_cast<State>( player().state() );
 }

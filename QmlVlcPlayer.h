@@ -27,8 +27,7 @@
 
 #include "QmlVlcPlayerProxy.h"
 
-class QmlVlcPlayer
-    : public QmlVlcPlayerProxy
+class QmlVlcPlayer : public QmlVlcPlayerProxy
 {
     Q_OBJECT
 
@@ -38,7 +37,4 @@ public:
 
     using QmlVlcPlayerProxy::classBegin;
     virtual void classBegin() override;
-
-private:
-    VLC::Instance* m_libvlc;
 };

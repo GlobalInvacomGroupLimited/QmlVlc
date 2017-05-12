@@ -32,24 +32,17 @@ QmlVlcVideoSource::QmlVlcVideoSource(QObject* parent )
 
 void QmlVlcVideoSource::classBegin( const std::shared_ptr<VLC::MediaPlayer>& player )
 {
+
     m_videoOutput.reset( new QmlVlcVideoOutput( parent() ) );
+
+
+    QObject::connect(m_videoOutput.data(), SIGNAL(framesDisplayed()), this,  SIGNAL(displayedFrames()));
 
     m_videoOutput->classBegin( player );
 
     m_videoOutput->init();
 }
 
-void QmlVlcVideoSource::registerVideoSurface( QmlVlcVideoSurface* s )
-{
-   m_videoOutput->registerVideoSurface( s );
-}
-
-void QmlVlcVideoSource::unregisterVideoSurface( QmlVlcVideoSurface* s )
-{
-    m_videoOutput->unregisterVideoSurface( s );
-}
-
-#ifdef QMLVLC_QTMULTIMEDIA_ENABLE
 QAbstractVideoSurface* QmlVlcVideoSource::videoSurface() const
 {
     return m_videoOutput->videoSurface();
@@ -59,4 +52,3 @@ void QmlVlcVideoSource::setVideoSurface( QAbstractVideoSurface* s )
 {
     m_videoOutput->setVideoSurface( s );
 }
-#endif
