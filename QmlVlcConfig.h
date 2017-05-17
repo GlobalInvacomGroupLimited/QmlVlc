@@ -33,13 +33,8 @@
 class QmlVlcConfig : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY (bool logging READ getlogging WRITE setlogging NOTIFY loggingChanged)
 
 public:
-
-    Q_INVOKABLE void enableLogging( bool enable ) { setlogging(enable); }
-
-    Q_INVOKABLE bool createLibvlcInstance();
 
     static QmlVlcConfig& instance();
 
@@ -68,10 +63,14 @@ public:
     }
 
 
+    void enableLogging( bool enable ) { setlogging(enable); }
+
+    bool createLibvlcInstance( );
+
+    bool releaseLibvlcInstance( );
+
 
     VLC::Instance* getLibvlcInstance();
-    void releaseLibvlcInstance( VLC::Instance * );
-
 
 signals:
     void loggingChanged(int newValue);
@@ -98,3 +97,28 @@ private:
 
     VLC::Instance * _libvlc;
 };
+
+
+
+class QmlVlcConfigProxy : public QObject
+{
+    Q_OBJECT
+    Q_PROPERTY (bool logging READ getlogging WRITE setlogging NOTIFY loggingChanged)
+
+public:
+
+    Q_INVOKABLE void enableLogging( bool enable ) { setlogging(enable); }
+
+    Q_INVOKABLE bool createLibvlcInstance( )  { return QmlVlcConfig::instance( ).createLibvlcInstance( ); }
+    Q_INVOKABLE bool releaseLibvlcInstance( ) { return QmlVlcConfig::instance( ).releaseLibvlcInstance( ); }
+
+    QmlVlcConfigProxy( QObject* parent = 0 );
+    ~QmlVlcConfigProxy() {}
+
+    int getlogging() const {    return QmlVlcConfig::instance( ).getlogging( ); }
+    void setlogging(bool val) { return QmlVlcConfig::instance( ).setlogging( val ); }
+
+signals:
+    void loggingChanged(int newValue);
+};
+

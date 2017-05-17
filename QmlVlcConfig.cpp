@@ -34,6 +34,8 @@
 #include <QVector>
 #include <QStringList>
 
+QmlVlcConfigProxy::QmlVlcConfigProxy( QObject* parent ) : QObject(parent) {}
+
 QmlVlcConfig& QmlVlcConfig::instance()
 {
     static QmlVlcConfig instance;
@@ -42,8 +44,8 @@ QmlVlcConfig& QmlVlcConfig::instance()
 
 QmlVlcConfig::QmlVlcConfig( QObject* parent )
     :  QObject(parent), _networkCacheTime( -1 ), _adjustFilter( false ), _marqueeFilter( false ),
-      _logoFilter( false ), _debug( false ), _fecLog( false ), _noVideoTitleShow( true ),
-      _hardwareAcceleration( false ), _trustedEnvironment( false ),
+      _logoFilter( false ), _debug( true ), _fecLog( false ), _noVideoTitleShow( true ),
+      _hardwareAcceleration( true ), _trustedEnvironment( false ),
       _libvlcCounter( 0 ), _libvlc( nullptr )
 {
 }
@@ -191,8 +193,9 @@ bool QmlVlcConfig::createLibvlcInstance()
         opts.push_back( "--no-video-title-show" );
 
     if( _hardwareAcceleration ) {
-        opts.push_back( "--ffmpeg-hw" );
         opts.push_back( "--avcodec-hw=any" );
+        opts.push_back( "--no-osd");
+        opts.push_back( "--no-spu");
     }
 
 #ifdef DISABLE_AV
@@ -222,15 +225,16 @@ VLC::Instance *QmlVlcConfig::getLibvlcInstance()
 }
 
 
-void QmlVlcConfig::releaseLibvlcInstance( VLC::Instance* libvlc )
+bool QmlVlcConfig::releaseLibvlcInstance( )
 {
-    if( !_libvlcCounter || libvlc != _libvlc ) {
+    if( !_libvlcCounter ) {
         Q_ASSERT( false );
-        return;
+        return false;
     }
 
     if( !--_libvlcCounter ) {
         delete _libvlc;
         _libvlc = nullptr;
     }
+    return true;
 }

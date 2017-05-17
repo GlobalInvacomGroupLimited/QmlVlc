@@ -39,18 +39,13 @@ const char* qmlVlcUri = "QmlVlc";
 const int QmlVlcVersionMajor = 0;
 const int QmlVlcVersionMinor = 1;
 
-static QObject * vlcConfig_qobject_singletontype_provider(QQmlEngine *engine, QJSEngine *scriptEngine)
-{
-    Q_UNUSED(engine)
-    Q_UNUSED(scriptEngine)
 
-    QmlVlcConfig& config = QmlVlcConfig::instance();
-    return &config;
-}
 
 void RegisterQmlVlcPlayer()
 {
-    qmlRegisterSingletonType<QmlVlcConfig>("Qt.vlc.config", QmlVlcVersionMajor, QmlVlcVersionMinor,"configApi", vlcConfig_qobject_singletontype_provider);
+    qmlRegisterType<QmlVlcConfigProxy>(
+        "QmlVlcConfig", QmlVlcVersionMajor, QmlVlcVersionMinor,
+        "VlcConfigProxy" );
 
     // @uri QmlVlc
     qmlRegisterUncreatableType<QmlVlcVideoSource>(

@@ -101,7 +101,7 @@ QmlVlcPlayerProxy::~QmlVlcPlayerProxy()
     classEnd();
 
     if( m_libvlc ) {
-        QmlVlcConfig::instance().releaseLibvlcInstance( m_libvlc );
+        QmlVlcConfig::instance().releaseLibvlcInstance( );
         m_libvlc = 0;
     }
 }

@@ -54,7 +54,7 @@ public:
 
     Q_PROPERTY( QString vlcVersion READ get_vlcVersion )
 
-    Q_PROPERTY( bool playing READ get_playing )
+    Q_PROPERTY( bool playing READ get_playing NOTIFY playingChanged )
     Q_PROPERTY( double length READ get_length NOTIFY mediaPlayerLengthChanged )
 
     Q_PROPERTY( QString mrl     READ get_mrl      WRITE set_mrl )
