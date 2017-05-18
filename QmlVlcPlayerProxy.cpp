@@ -65,16 +65,16 @@ void QmlVlcPlayerProxy::classBegin( )
     m_player   = n_player;
 
     h_onPlaying = player().eventManager().onPlaying( [this](){
-        if( playing == false ) {
-            playing = true;
-            Q_EMIT playingChanged();
-        } } );
+        playing = true;
+        Q_EMIT playingChanged(); } );
 
     h_onStopped = player().eventManager().onStopped( [this](){
-        if( playing == true ) {
-            playing = false;
-            Q_EMIT playingChanged();
-        } } );
+        playing = false;
+        Q_EMIT playingChanged(); } );
+
+    h_onEncounteredError = player().eventManager().onEncounteredError( [this](){
+        Q_EMIT encounteredError(); } );
+
 
 
     m_audio.classBegin(n_player);
@@ -92,7 +92,7 @@ void QmlVlcPlayerProxy::classEnd()
 
     auto em =  player().eventManager();
 
-    em.unregister( h_onPlaying, h_onStopped );
+    em.unregister( h_onPlaying, h_onStopped, h_onEncounteredError );
 
 }
 

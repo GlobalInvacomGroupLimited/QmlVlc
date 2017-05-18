@@ -70,6 +70,7 @@ public:
 
 Q_SIGNALS:
     void playingChanged();
+    void encounteredError();
 
 public:
     //QML Api
@@ -150,6 +151,7 @@ private:
 
     VLC::EventManager::RegisteredEvent h_onPlaying;
     VLC::EventManager::RegisteredEvent h_onStopped;
+    VLC::EventManager::RegisteredEvent h_onEncounteredError;
 
 
     bool playing;
