@@ -86,7 +86,7 @@ void QmlVlcAudio::set_mute( bool mute )
      else if( ( audioTrackList.size() > 0 ) )
      {
          player().setAudioTrack( audioTrackList[0] );
-         player().setMute(false);
+         //player().setMute(false);
      }
 }
 
