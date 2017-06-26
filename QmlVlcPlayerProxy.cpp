@@ -76,6 +76,17 @@ void QmlVlcPlayerProxy::classBegin( )
         Q_EMIT encounteredError(); } );
 
 
+    player().setFecStatsCallbacks( [this]( void * stats  ) {
+        fecstats_t * fecStats_p = ( fecstats_t *) stats;
+
+        fecstats_t fecStats;
+        fecStats.blockNumber  = fecStats_p->blockNumber;
+        fecStats.missingPkts  = fecStats_p->missingPkts;
+        fecStats.receivedPkts = fecStats_p->receivedPkts;
+        fecStats.recovered    = fecStats_p->recovered;
+
+        Q_EMIT gotStats( fecStats );
+    } );
 
     m_audio.classBegin(n_player);
 

@@ -32,6 +32,7 @@
 
 #include "QmlVlcVideoSource.h"
 #include "QmlVlcAudio.h"
+#include "QmlVlcFec.h"
 //#include "QmlVlcInput.h"
 //#include "QmlVlcPlaylist.h"
 //#include "QmlVlcSubtitle.h"
@@ -67,6 +68,9 @@ public:
     //Q_PROPERTY( QmlVlcSubtitle* subtitle         READ get_subtitle  CONSTANT )
     //Q_PROPERTY( QmlVlcPlaylist* playlist         READ get_playlist  CONSTANT )
     //Q_PROPERTY( QmlVlcMedia*    mediaDescription READ get_mediaDesc CONSTANT )
+
+signals:
+    void gotStats( fecstats_t fecStats );
 
 Q_SIGNALS:
     void playingChanged();
