@@ -77,9 +77,9 @@ void QmlVlcPlayerProxy::classBegin( )
 
 
     player().setFecStatsCallbacks( [this]( void * stats  ) {
-        fecstats_t * fecStats_p = ( fecstats_t *) stats;
+        FecStats * fecStats_p = ( FecStats *) stats;
 
-        fecstats_t fecStats;
+        FecStats fecStats;
         fecStats.blockNumber  = fecStats_p->blockNumber;
         fecStats.missingPkts  = fecStats_p->missingPkts;
         fecStats.receivedPkts = fecStats_p->receivedPkts;

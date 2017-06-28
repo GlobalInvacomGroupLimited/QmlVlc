@@ -70,7 +70,7 @@ public:
     //Q_PROPERTY( QmlVlcMedia*    mediaDescription READ get_mediaDesc CONSTANT )
 
 signals:
-    void gotStats( fecstats_t fecStats );
+    void gotStats( FecStats fecStats );
 
 Q_SIGNALS:
     void playingChanged();
