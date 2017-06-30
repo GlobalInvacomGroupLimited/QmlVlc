@@ -145,12 +145,12 @@ int vlc_entry__edgedetection (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__dvbsub (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__dsm (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__dolby (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__directory (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__diracsys (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__demux_stl (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__demux_cdg (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__deinterlace (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__decomp (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__cvpx_i420 (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__cvdsub (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__croppadd (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__compressor (int (*)(void *, void *, int, ...), void *);
@@ -339,12 +339,12 @@ const void *vlc_static_modules[] = {
 (void *) vlc_entry__dvbsub,
 (void *) vlc_entry__dsm,
 (void *) vlc_entry__dolby,
+(void *) vlc_entry__directory,
 (void *) vlc_entry__diracsys,
 (void *) vlc_entry__demux_stl,
 (void *) vlc_entry__demux_cdg,
 (void *) vlc_entry__deinterlace,
 (void *) vlc_entry__decomp,
-(void *) vlc_entry__cvpx_i420,
 (void *) vlc_entry__cvdsub,
 (void *) vlc_entry__croppadd,
 (void *) vlc_entry__compressor,
