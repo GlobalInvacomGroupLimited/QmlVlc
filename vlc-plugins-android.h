@@ -83,6 +83,7 @@ int vlc_entry__playlist (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__es (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__yuvp (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__chroma_yuv_neon (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__directory_demux (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__packetizer_mlp (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__gain (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__console_logger (int (*)(void *, void *, int, ...), void *);
@@ -307,6 +308,7 @@ const void *vlc_static_modules[] = {
  (void *)vlc_entry__es,
  (void *)vlc_entry__yuvp,
  (void *)vlc_entry__chroma_yuv_neon,
+ (void *)vlc_entry__directory_demux,
  (void *)vlc_entry__packetizer_mlp,
  (void *)vlc_entry__gain,
  (void *)vlc_entry__console_logger,
