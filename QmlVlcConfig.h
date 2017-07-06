@@ -42,7 +42,6 @@ public:
     void enableAdjustFilter( bool enable );
     void enableMarqueeFilter( bool enable );
     void enableLogoFilter( bool enable );
-    void enableDebug( bool enable );
     void enableFecLog( bool enable );
     void enableNoVideoTitleShow( bool enable );
     void enableHardwareAcceleration( bool enable );
@@ -88,7 +87,6 @@ private:
     bool _adjustFilter;
     bool _marqueeFilter;
     bool _logoFilter;
-    bool _debug;
     bool _fecLog;
     bool _noVideoTitleShow;
     bool _hardwareAcceleration;

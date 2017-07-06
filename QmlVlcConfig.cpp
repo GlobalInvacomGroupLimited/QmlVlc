@@ -33,6 +33,7 @@
 
 #include <QVector>
 #include <QStringList>
+#include <QDebug>
 
 QmlVlcConfigProxy::QmlVlcConfigProxy( QObject* parent ) : QObject(parent) {}
 
@@ -44,7 +45,7 @@ QmlVlcConfig& QmlVlcConfig::instance()
 
 QmlVlcConfig::QmlVlcConfig( QObject* parent )
     :  QObject(parent), _networkCacheTime( -1 ), _adjustFilter( false ), _marqueeFilter( false ),
-      _logoFilter( false ), _debug( true ), _fecLog( false ), _noVideoTitleShow( true ),
+      _logoFilter( false ), _fecLog( false ), _noVideoTitleShow( true ),
       _hardwareAcceleration( true ), _trustedEnvironment( false ),
       _libvlcCounter( 0 ), _libvlc( nullptr )
 {
@@ -75,10 +76,7 @@ void QmlVlcConfig::enableLogoFilter( bool enable )
     _logoFilter = enable;
 }
 
-void QmlVlcConfig::enableDebug( bool enable )
-{
-    _debug = enable;
-}
+
 
 void QmlVlcConfig::enableFecLog( bool enable )
 {
@@ -181,8 +179,9 @@ bool QmlVlcConfig::createLibvlcInstance()
         opts.push_back( subFiltersBuf.constData() );
     }
 
-    if( _debug )
+#ifdef VLC_DEBUG
         opts.push_back( "-vvv" );
+#endif
 
     if( _fecLog )
         opts.push_back( "--fec-logging" );
@@ -204,6 +203,16 @@ bool QmlVlcConfig::createLibvlcInstance()
 #endif
 
     _libvlc = new VLC::Instance(opts.size(), opts.data());
+
+#ifdef VLC_DEBUG
+    _libvlc->logSet(
+                [this](int level, const libvlc_log_t* type, std::string message) {
+                    level = level;
+                    type  = type;
+
+                    qDebug() << message.c_str();
+                } );
+#endif
 
    if( _libvlc == nullptr ) {
         qCritical( "Couldn't create libvlc instance. Check vlc plugins dir." );
@@ -232,6 +241,9 @@ bool QmlVlcConfig::releaseLibvlcInstance( )
         return false;
     }
 
+#ifdef VLC_DEBUG
+    _libvlc->logUnset();
+#endif
     if( !--_libvlcCounter ) {
         delete _libvlc;
         _libvlc = nullptr;
