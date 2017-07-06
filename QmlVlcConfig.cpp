@@ -193,6 +193,7 @@ bool QmlVlcConfig::createLibvlcInstance()
 
     if( _hardwareAcceleration ) {
         opts.push_back( "--avcodec-hw=any" );
+        opts.push_back( "--codec=avcodec");
         opts.push_back( "--no-osd");
         opts.push_back( "--no-spu");
     }
