@@ -208,8 +208,8 @@ bool QmlVlcConfig::createLibvlcInstance()
 #ifdef VLC_DEBUG
     _libvlc->logSet(
                 [this](int level, const libvlc_log_t* type, std::string message) {
-                    level = level;
-                    type  = type;
+                    (void) level;
+                    (void) type;
 
                     qDebug() << message.c_str();
                 } );
