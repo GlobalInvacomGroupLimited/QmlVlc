@@ -65,12 +65,16 @@ void QmlVlcPlayerProxy::classBegin( )
     m_player   = n_player;
 
     h_onPlaying = player().eventManager().onPlaying( [this](){
-        playing = true;
-        Q_EMIT playingChanged(); } );
+        if( playing == false ) {
+            playing = true;
+            Q_EMIT playingChanged();
+        }  } );
 
     h_onStopped = player().eventManager().onStopped( [this](){
-        playing = false;
-        Q_EMIT playingChanged(); } );
+        if( playing == true ) {
+            playing = false;
+            Q_EMIT playingChanged();
+        }  } );
 
     h_onEncounteredError = player().eventManager().onEncounteredError( [this](){
         Q_EMIT encounteredError(); } );
