@@ -5,8 +5,10 @@
 struct FecStats {
 
     uint16_t blockNumber;
-    uint32_t missingPkts;
-    uint32_t receivedPkts;
+    uint32_t missingRTPPkts;
+    uint32_t receivedRTPPkts;
+    uint32_t missingTSPkts;
+    uint32_t receivedTSPkts;
     bool recovered;
 
 };

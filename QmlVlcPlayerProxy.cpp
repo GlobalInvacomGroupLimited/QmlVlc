@@ -84,10 +84,12 @@ void QmlVlcPlayerProxy::classBegin( )
         FecStats * fecStats_p = ( FecStats *) stats;
 
         FecStats fecStats;
-        fecStats.blockNumber  = fecStats_p->blockNumber;
-        fecStats.missingPkts  = fecStats_p->missingPkts;
-        fecStats.receivedPkts = fecStats_p->receivedPkts;
-        fecStats.recovered    = fecStats_p->recovered;
+        fecStats.blockNumber     = fecStats_p->blockNumber;
+        fecStats.missingRTPPkts  = fecStats_p->missingRTPPkts;
+        fecStats.receivedRTPPkts = fecStats_p->receivedRTPPkts;
+        fecStats.missingTSPkts   = fecStats_p->missingTSPkts;
+        fecStats.receivedTSPkts  = fecStats_p->receivedTSPkts;
+        fecStats.recovered       = fecStats_p->recovered;
 
         Q_EMIT gotStats( fecStats );
     } );
