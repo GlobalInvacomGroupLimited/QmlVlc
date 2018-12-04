@@ -29,6 +29,8 @@
 #include "vlc-plugins-iPhone.h"
 #elif defined(__ANDROID__)
 #include "vlc-plugins-android.h"
+#else
+#include "vlc-plugins-linux.h"
 #endif
 
 #include <QVector>

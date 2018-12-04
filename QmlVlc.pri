@@ -20,6 +20,7 @@ HEADERS += \
     $$PWD/libvlcpp/vlcpp/MediaPlayer.hpp \
     $$PWD/libvlcpp/vlcpp/structures.hpp \
     $$PWD/vlc-plugins-android.h \
+    $$PWD/vlc-plugins-linux.h \
     $$PWD/vlc-plugins-iPhone.h \
     $$PWD/QmlVlcAudio.h \
     $$PWD/QmlVlcFec.h
