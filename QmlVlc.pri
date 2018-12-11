@@ -22,6 +22,7 @@ HEADERS += \
     $$PWD/vlc-plugins-android.h \
     $$PWD/vlc-plugins-linux.h \
     $$PWD/vlc-plugins-iPhone.h \
+    $$PWD/vlc-plugins-raspi.h \
     $$PWD/QmlVlcAudio.h \
     $$PWD/QmlVlcFec.h
 

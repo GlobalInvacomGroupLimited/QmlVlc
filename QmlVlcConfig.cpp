@@ -29,6 +29,8 @@
 #include "vlc-plugins-iPhone.h"
 #elif defined(__ANDROID__)
 #include "vlc-plugins-android.h"
+#elif defined(__RASPBERRY_PI__)
+#include "vlc-plugins-raspi.h"
 #else
 #include "vlc-plugins-linux.h"
 #endif
