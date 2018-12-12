@@ -3,191 +3,235 @@
 #ifdef __cplusplus
 extern "C"{
 #endif
-int vlc_entry__zvbi (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__yuy2_i422 (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__yuy2_i420 (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__yuvp (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__yuv (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__xml (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__xa (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__wav (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__ios (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__vorbis (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__rtsp (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__voc (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__vobsub (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__vmem (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__videotoolbox (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__vdr (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__vc1 (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__uleaddvaudio (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__ugly (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__udp (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__ty (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__ttml (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__tta (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__ts (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__trivial (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__transform (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__tospdif (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__timecode (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__theora (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__textst (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__telx (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__tcp (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__taglib (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__syslog (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__swscale (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__svcdsub (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__subtitle (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__subsusf (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__substx3g (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__subsdelay (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__subsdec (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__stl (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__stereo_widen (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__spudec (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__speex (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__spdif (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__spatializer (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__simple_channel_mixer (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__sftp (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__securetransport (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__sdp (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__scte27 (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__scte18 (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__scaletempo (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__scale (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__satip (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__sap (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__rv32 (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__rtpvideo (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__rtp (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__rotate (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__record (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__rawvideo (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__rawvid (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__rawdv (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__rawaud (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__pva (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__ps (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__prefetch (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__png (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__playlist (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__param_eq (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__vc1 (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__mpegvideo (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__mpegaudio (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__mpeg4video (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__mpeg4audio (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__mlp (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__hevc (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__h264 (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__flac (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__dts (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__dirac (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__copy (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__packetizer_avparser (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__a52 (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__opus (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__oggspots (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__ogg (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__nuv (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__nsv (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__nsc (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__normvol (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__nfs (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__mpgv (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__mpg123 (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__mp4 (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__mono (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__mod (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__mkv (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__mjpeg (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__microdns (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__memory (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__lpcm (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__logo (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__live555 (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__libass (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__karaoke (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__integer_mixer (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__inflate (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__imem_access (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__image (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__i422_yuy2 (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__i422_i420 (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__i420_yuy2 (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__i420_rgb (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__i420_nv12 (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__i420_10_p010 (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__access (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__http (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__hds (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__h26x (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__grey_yuv (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__gain (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__g711 (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__ftp (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__freeze (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__freetype (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__fps (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__folder (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__float_mixer (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__flaschen (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__flacsys (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__flac (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__filesystem (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__file (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__es (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__equalizer (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__edgedetection (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__dvbsub (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__dsm (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__dolby (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__directory (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__diracsys (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__demux_stl (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__demux_cdg (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__deinterlace (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__decomp (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__cvdsub (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__croppadd (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__compressor (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__chorus_flanger (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__chain (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__cdg (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__cc (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__canvas (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__caf (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__cache_read (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__cache_block (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__bonjour (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__blend (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__avio (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__avi (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__avformat (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__avcodec (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__audiounit_ios (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__audio_format (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__au (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__attachment (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__asf (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__archive (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__araw (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__amem (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__aiff (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__afile (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__aes3 (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__adpcm (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__adjust (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__adf (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__adaptive (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__file (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__access_mms (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__concat (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_libzvbi (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_chroma_yuy2_i422 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_chroma_yuy2_i420 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_chroma_yuvp (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_output_yuv (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__misc_xml_libxml (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_xa (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_webvtt_libwebvtt (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_wav (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_libvpx (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_output_ios (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_libvorbis (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__misc_rtsp (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_voc (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_vobsub (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_output_vmem (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_libvideotoolbox (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_output_vdummy (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_vdr (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_vc1 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_uleaddvaudio (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_resampler_ugly (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_udp (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_ty (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_libtwolame (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_ttml_ttml (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_tta (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_mpeg_libts (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_channel_mixer_trivial (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_filter_transform (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_converter_tospdif (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_timecode (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_libtheora (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_textst (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_telx (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__text_renderer_tdummy (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_tcp (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__meta_engine_libtaglib (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__logger_syslog (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_chroma_libswscale (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_svcdsub (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_subtitle (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_subsusf (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_substx3g (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__spu_subsdelay (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_subsdec (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_out_transcode_libstream_out_transcode (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_out_libstream_out_standard (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_out_smem (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_out_setid (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_out_libstream_out_rtp (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_out_record (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_out_gather (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_out_es (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_out_duplicate (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_out_dummy (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_out_display (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_out_description (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_out_delay (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_out_cycle (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_out_chromecast_libstream_out_chromecast (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_out_bridge (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_out_autodel (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_stl (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_stereo_widen (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_spudec_libspudec (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_libspeex (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_spdif (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_spatializer_spatializer (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_channel_mixer_libspatialaudio (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_resampler_libsoxr (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_filter_skiptags (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_channel_mixer_libsimple_channel_mixer (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_libsftp (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__misc_libsecuretransport (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_sdp (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_scte27 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_scte18 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_scaletempo (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_libscaletempo_pitch (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_filter_scale (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_satip (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__services_discovery_libsap (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_chroma_rv32 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_rtpvideo (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_rtp_librtp (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_filter_rotate (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_filter_record (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_rawvideo (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_rawvid (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_rawdv (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_rawaud (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_pva (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_mpeg_ps (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_filter_prefetch (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_png (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_playlist_playlist (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_param_eq (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__packetizer_vc1 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__packetizer_mpegvideo (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__packetizer_mpegaudio (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__packetizer_mpeg4video (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__packetizer_mpeg4audio (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__packetizer_mlp (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__packetizer_hevc (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__packetizer_h264 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__packetizer_flac (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__packetizer_dts (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__packetizer_dirac (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__packetizer_copy (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__packetizer_libpacketizer_avparser (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__packetizer_av1 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__packetizer_a52 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_libopus (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_liboggspots (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_libogg (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_nuv (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_nsv (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_nsc (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_filter_noseek (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_normvol (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_libnfs (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_mpeg_mpgv (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_libmpg123 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_mp4_mp4 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_channel_mixer_mono (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_libmod (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_mkv_libmkv (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_mjpeg (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__services_discovery_libmicrodns (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__keystore_memory (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_lpcm (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__spu_logo (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_liblive555 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_liblibass (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_karaoke (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_mixer_libinteger_mixer (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_filter_inflate (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_imem_access (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_image (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_idummy (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_chroma_libi422_yuy2 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_chroma_i422_i420 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_chroma_libi420_yuy2 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_chroma_i420_rgb (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_chroma_libi420_nv12 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_chroma_libi420_10_p010 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_http_access (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_http (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_filter_hds_libhds (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_mpeg_h26x (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_chroma_grey_yuv (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_output_opengl_libglconv_cvpx (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_gain (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_g711 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_ftp (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_filter_freeze (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__text_renderer_freetype_libfreetype (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_filter_fps (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__meta_engine_folder (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_mixer_libfloat_mixer (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_output_flaschen (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_libflacsys (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_libflac (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_libfilesystem (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__keystore_file (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_mpeg_es (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_equalizer (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_edummy (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_filter_edgedetection (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_dvbsub (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__control_dummy (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_channel_mixer_dolby (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_directory (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_libdiracsys (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_libdemux_stl (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_out_chromecast_libdemux_chromecast (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_libdemux_cdg (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_filter_deinterlace_libdeinterlace (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_filter_decomp (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_ddummy (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_chroma_libcvpx (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_cvdsub (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_filter_croppadd (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_compressor (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_filter_ci_filters (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_chorus_flanger (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_chroma_chain (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_cdg (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_cc (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_filter_canvas (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_caf (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_filter_cache_read (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_filter_cache_block (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__services_discovery_libbonjour (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_filter_blend (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_libavio (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_avi_avi (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_avformat_libavformat (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_avcodec_libavcodec (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_output_audiounit_ios (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_audiotoolbox_midi (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_filter_converter_libaudio_format (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_au (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_attachment (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_asf_asf (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_extractor_libarchive (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_araw (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_libaom (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_output_amem (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_aiff (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_output_libafile (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_aes3 (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__audio_output_adummy (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__codec_adpcm (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__video_filter_adjust (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__stream_filter_adf (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__demux_adaptive_libadaptive (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_output_libaccess_output_shout (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_output_http (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_output_file (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_output_dummy (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_mms_libaccess_mms (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__access_concat (int (*)(void *, void *, int, ...), void *);
 #ifdef __arm__
+int vlc_entry__arm_neon_libyuv_rgb_neon (int (*)(void *, void *, int, ...), void *);
+int vlc_entry__arm_neon_libchroma_yuv_neon (int (*)(void *, void *, int, ...), void *);
 #endif
+
 #ifdef __cplusplus
 }
 #endif
@@ -197,190 +241,233 @@ int vlc_entry__concat (int (*)(void *, void *, int, ...), void *);
 #endif
 
 const void *vlc_static_modules[] = {
-(void *) vlc_entry__zvbi,
-(void *) vlc_entry__yuy2_i422,
-(void *) vlc_entry__yuy2_i420,
-(void *) vlc_entry__yuvp,
-(void *) vlc_entry__yuv,
-(void *) vlc_entry__xml,
-(void *) vlc_entry__xa,
-(void *) vlc_entry__wav,
-(void *) vlc_entry__ios,
-(void *) vlc_entry__vorbis,
-(void *) vlc_entry__rtsp,
-(void *) vlc_entry__voc,
-(void *) vlc_entry__vobsub,
-(void *) vlc_entry__vmem,
-(void *) vlc_entry__videotoolbox,
-(void *) vlc_entry__vdr,
-(void *) vlc_entry__vc1,
-(void *) vlc_entry__uleaddvaudio,
-(void *) vlc_entry__ugly,
-(void *) vlc_entry__udp,
-(void *) vlc_entry__ty,
-(void *) vlc_entry__ttml,
-(void *) vlc_entry__tta,
-(void *) vlc_entry__ts,
-(void *) vlc_entry__trivial,
-(void *) vlc_entry__transform,
-(void *) vlc_entry__tospdif,
-(void *) vlc_entry__timecode,
-(void *) vlc_entry__theora,
-(void *) vlc_entry__textst,
-(void *) vlc_entry__telx,
-(void *) vlc_entry__tcp,
-(void *) vlc_entry__taglib,
-(void *) vlc_entry__syslog,
-(void *) vlc_entry__swscale,
-(void *) vlc_entry__svcdsub,
-(void *) vlc_entry__subtitle,
-(void *) vlc_entry__subsusf,
-(void *) vlc_entry__substx3g,
-(void *) vlc_entry__subsdelay,
-(void *) vlc_entry__subsdec,
-(void *) vlc_entry__stl,
-(void *) vlc_entry__stereo_widen,
-(void *) vlc_entry__spudec,
-(void *) vlc_entry__speex,
-(void *) vlc_entry__spdif,
-(void *) vlc_entry__spatializer,
-(void *) vlc_entry__simple_channel_mixer,
-(void *) vlc_entry__sftp,
-(void *) vlc_entry__securetransport,
-(void *) vlc_entry__sdp,
-(void *) vlc_entry__scte27,
-(void *) vlc_entry__scte18,
-(void *) vlc_entry__scaletempo,
-(void *) vlc_entry__scale,
-(void *) vlc_entry__satip,
-(void *) vlc_entry__sap,
-(void *) vlc_entry__rv32,
-(void *) vlc_entry__rtpvideo,
-(void *) vlc_entry__rtp,
-(void *) vlc_entry__rotate,
-(void *) vlc_entry__record,
-(void *) vlc_entry__rawvideo,
-(void *) vlc_entry__rawvid,
-(void *) vlc_entry__rawdv,
-(void *) vlc_entry__rawaud,
-(void *) vlc_entry__pva,
-(void *) vlc_entry__ps,
-(void *) vlc_entry__prefetch,
-(void *) vlc_entry__png,
-(void *) vlc_entry__playlist,
-(void *) vlc_entry__param_eq,
-(void *) vlc_entry__vc1,
-(void *) vlc_entry__mpegvideo,
-(void *) vlc_entry__mpegaudio,
-(void *) vlc_entry__mpeg4video,
-(void *) vlc_entry__mpeg4audio,
-(void *) vlc_entry__mlp,
-(void *) vlc_entry__hevc,
-(void *) vlc_entry__h264,
-(void *) vlc_entry__flac,
-(void *) vlc_entry__dts,
-(void *) vlc_entry__dirac,
-(void *) vlc_entry__copy,
-(void *) vlc_entry__packetizer_avparser,
-(void *) vlc_entry__a52,
-(void *) vlc_entry__opus,
-(void *) vlc_entry__oggspots,
-(void *) vlc_entry__ogg,
-(void *) vlc_entry__nuv,
-(void *) vlc_entry__nsv,
-(void *) vlc_entry__nsc,
-(void *) vlc_entry__normvol,
-(void *) vlc_entry__nfs,
-(void *) vlc_entry__mpgv,
-(void *) vlc_entry__mpg123,
-(void *) vlc_entry__mp4,
-(void *) vlc_entry__mono,
-(void *) vlc_entry__mod,
-(void *) vlc_entry__mkv,
-(void *) vlc_entry__mjpeg,
-(void *) vlc_entry__microdns,
-(void *) vlc_entry__memory,
-(void *) vlc_entry__lpcm,
-(void *) vlc_entry__logo,
-(void *) vlc_entry__live555,
-(void *) vlc_entry__libass,
-(void *) vlc_entry__karaoke,
-(void *) vlc_entry__integer_mixer,
-(void *) vlc_entry__inflate,
-(void *) vlc_entry__imem_access,
-(void *) vlc_entry__image,
-(void *) vlc_entry__i422_yuy2,
-(void *) vlc_entry__i422_i420,
-(void *) vlc_entry__i420_yuy2,
-(void *) vlc_entry__i420_rgb,
-(void *) vlc_entry__i420_nv12,
-(void *) vlc_entry__i420_10_p010,
-(void *) vlc_entry__access,
-(void *) vlc_entry__http,
-(void *) vlc_entry__hds,
-(void *) vlc_entry__h26x,
-(void *) vlc_entry__grey_yuv,
-(void *) vlc_entry__gain,
-(void *) vlc_entry__g711,
-(void *) vlc_entry__ftp,
-(void *) vlc_entry__freeze,
-(void *) vlc_entry__freetype,
-(void *) vlc_entry__fps,
-(void *) vlc_entry__folder,
-(void *) vlc_entry__float_mixer,
-(void *) vlc_entry__flaschen,
-(void *) vlc_entry__flacsys,
-(void *) vlc_entry__flac,
-(void *) vlc_entry__filesystem,
-(void *) vlc_entry__file,
-(void *) vlc_entry__es,
-(void *) vlc_entry__equalizer,
-(void *) vlc_entry__edgedetection,
-(void *) vlc_entry__dvbsub,
-(void *) vlc_entry__dsm,
-(void *) vlc_entry__dolby,
-(void *) vlc_entry__directory,
-(void *) vlc_entry__diracsys,
-(void *) vlc_entry__demux_stl,
-(void *) vlc_entry__demux_cdg,
-(void *) vlc_entry__deinterlace,
-(void *) vlc_entry__decomp,
-(void *) vlc_entry__cvdsub,
-(void *) vlc_entry__croppadd,
-(void *) vlc_entry__compressor,
-(void *) vlc_entry__chorus_flanger,
-(void *) vlc_entry__chain,
-(void *) vlc_entry__cdg,
-(void *) vlc_entry__cc,
-(void *) vlc_entry__canvas,
-(void *) vlc_entry__caf,
-(void *) vlc_entry__cache_read,
-(void *) vlc_entry__cache_block,
-(void *) vlc_entry__bonjour,
-(void *) vlc_entry__blend,
-(void *) vlc_entry__avio,
-(void *) vlc_entry__avi,
-(void *) vlc_entry__avformat,
-(void *) vlc_entry__avcodec,
-(void *) vlc_entry__audiounit_ios,
-(void *) vlc_entry__audio_format,
-(void *) vlc_entry__au,
-(void *) vlc_entry__attachment,
-(void *) vlc_entry__asf,
-(void *) vlc_entry__archive,
-(void *) vlc_entry__araw,
-(void *) vlc_entry__amem,
-(void *) vlc_entry__aiff,
-(void *) vlc_entry__afile,
-(void *) vlc_entry__aes3,
-(void *) vlc_entry__adpcm,
-(void *) vlc_entry__adjust,
-(void *) vlc_entry__adf,
-(void *) vlc_entry__adaptive,
-(void *) vlc_entry__file,
-(void *) vlc_entry__access_mms,
-(void *) vlc_entry__concat,
-#ifdef __arm__
-#endif
+(void *)  vlc_entry__codec_libzvbi,
+(void *)  vlc_entry__video_chroma_yuy2_i422,
+(void *)  vlc_entry__video_chroma_yuy2_i420,
+(void *)  vlc_entry__video_chroma_yuvp,
+(void *)  vlc_entry__video_output_yuv,
+(void *)  vlc_entry__misc_xml_libxml,
+(void *)  vlc_entry__demux_xa,
+(void *)  vlc_entry__codec_webvtt_libwebvtt,
+(void *)  vlc_entry__demux_wav,
+(void *)  vlc_entry__codec_libvpx,
+(void *)  vlc_entry__video_output_ios,
+(void *)  vlc_entry__codec_libvorbis,
+(void *)  vlc_entry__misc_rtsp,
+(void *)  vlc_entry__demux_voc,
+(void *)  vlc_entry__demux_vobsub,
+(void *)  vlc_entry__video_output_vmem,
+(void *)  vlc_entry__codec_libvideotoolbox,
+(void *)  vlc_entry__video_output_vdummy,
+(void *)  vlc_entry__access_vdr,
+(void *)  vlc_entry__demux_vc1,
+(void *)  vlc_entry__codec_uleaddvaudio,
+(void *)  vlc_entry__audio_filter_resampler_ugly,
+(void *)  vlc_entry__access_udp,
+(void *)  vlc_entry__demux_ty,
+(void *)  vlc_entry__codec_libtwolame,
+(void *)  vlc_entry__codec_ttml_ttml,
+(void *)  vlc_entry__demux_tta,
+(void *)  vlc_entry__demux_mpeg_libts,
+(void *)  vlc_entry__audio_filter_channel_mixer_trivial,
+(void *)  vlc_entry__video_filter_transform,
+(void *)  vlc_entry__audio_filter_converter_tospdif,
+(void *)  vlc_entry__access_timecode,
+(void *)  vlc_entry__codec_libtheora,
+(void *)  vlc_entry__codec_textst,
+(void *)  vlc_entry__codec_telx,
+(void *)  vlc_entry__text_renderer_tdummy,
+(void *)  vlc_entry__access_tcp,
+(void *)  vlc_entry__meta_engine_libtaglib,
+(void *)  vlc_entry__logger_syslog,
+(void *)  vlc_entry__video_chroma_libswscale,
+(void *)  vlc_entry__codec_svcdsub,
+(void *)  vlc_entry__demux_subtitle,
+(void *)  vlc_entry__codec_subsusf,
+(void *)  vlc_entry__codec_substx3g,
+(void *)  vlc_entry__spu_subsdelay,
+(void *)  vlc_entry__codec_subsdec,
+(void *)  vlc_entry__stream_out_transcode_libstream_out_transcode,
+(void *)  vlc_entry__stream_out_libstream_out_standard,
+(void *)  vlc_entry__stream_out_smem,
+(void *)  vlc_entry__stream_out_setid,
+(void *)  vlc_entry__stream_out_libstream_out_rtp,
+(void *)  vlc_entry__stream_out_record,
+(void *)  vlc_entry__stream_out_gather,
+(void *)  vlc_entry__stream_out_es,
+(void *)  vlc_entry__stream_out_duplicate,
+(void *)  vlc_entry__stream_out_dummy,
+(void *)  vlc_entry__stream_out_display,
+(void *)  vlc_entry__stream_out_description,
+(void *)  vlc_entry__stream_out_delay,
+(void *)  vlc_entry__stream_out_cycle,
+(void *)  vlc_entry__stream_out_chromecast_libstream_out_chromecast,
+(void *)  vlc_entry__stream_out_bridge,
+(void *)  vlc_entry__stream_out_autodel,
+(void *)  vlc_entry__codec_stl,
+(void *)  vlc_entry__audio_filter_stereo_widen,
+(void *)  vlc_entry__codec_spudec_libspudec,
+(void *)  vlc_entry__codec_libspeex,
+(void *)  vlc_entry__codec_spdif,
+(void *)  vlc_entry__audio_filter_spatializer_spatializer,
+(void *)  vlc_entry__audio_filter_channel_mixer_libspatialaudio,
+(void *)  vlc_entry__audio_filter_resampler_libsoxr,
+(void *)  vlc_entry__stream_filter_skiptags,
+(void *)  vlc_entry__audio_filter_channel_mixer_libsimple_channel_mixer,
+(void *)  vlc_entry__access_libsftp,
+(void *)  vlc_entry__misc_libsecuretransport,
+(void *)  vlc_entry__access_sdp,
+(void *)  vlc_entry__codec_scte27,
+(void *)  vlc_entry__codec_scte18,
+(void *)  vlc_entry__audio_filter_scaletempo,
+(void *)  vlc_entry__audio_filter_libscaletempo_pitch,
+(void *)  vlc_entry__video_filter_scale,
+(void *)  vlc_entry__access_satip,
+(void *)  vlc_entry__services_discovery_libsap,
+(void *)  vlc_entry__video_chroma_rv32,
+(void *)  vlc_entry__codec_rtpvideo,
+(void *)  vlc_entry__access_rtp_librtp,
+(void *)  vlc_entry__video_filter_rotate,
+(void *)  vlc_entry__stream_filter_record,
+(void *)  vlc_entry__codec_rawvideo,
+(void *)  vlc_entry__demux_rawvid,
+(void *)  vlc_entry__demux_rawdv,
+(void *)  vlc_entry__demux_rawaud,
+(void *)  vlc_entry__demux_pva,
+(void *)  vlc_entry__demux_mpeg_ps,
+(void *)  vlc_entry__stream_filter_prefetch,
+(void *)  vlc_entry__codec_png,
+(void *)  vlc_entry__demux_playlist_playlist,
+(void *)  vlc_entry__audio_filter_param_eq,
+(void *)  vlc_entry__packetizer_vc1,
+(void *)  vlc_entry__packetizer_mpegvideo,
+(void *)  vlc_entry__packetizer_mpegaudio,
+(void *)  vlc_entry__packetizer_mpeg4video,
+(void *)  vlc_entry__packetizer_mpeg4audio,
+(void *)  vlc_entry__packetizer_mlp,
+(void *)  vlc_entry__packetizer_hevc,
+(void *)  vlc_entry__packetizer_h264,
+(void *)  vlc_entry__packetizer_flac,
+(void *)  vlc_entry__packetizer_dts,
+(void *)  vlc_entry__packetizer_dirac,
+(void *)  vlc_entry__packetizer_copy,
+(void *)  vlc_entry__packetizer_libpacketizer_avparser,
+(void *)  vlc_entry__packetizer_av1,
+(void *)  vlc_entry__packetizer_a52,
+(void *)  vlc_entry__codec_libopus,
+(void *)  vlc_entry__codec_liboggspots,
+(void *)  vlc_entry__demux_libogg,
+(void *)  vlc_entry__demux_nuv,
+(void *)  vlc_entry__demux_nsv,
+(void *)  vlc_entry__demux_nsc,
+(void *)  vlc_entry__demux_filter_noseek,
+(void *)  vlc_entry__audio_filter_normvol,
+(void *)  vlc_entry__access_libnfs,
+(void *)  vlc_entry__demux_mpeg_mpgv,
+(void *)  vlc_entry__codec_libmpg123,
+(void *)  vlc_entry__demux_mp4_mp4,
+(void *)  vlc_entry__audio_filter_channel_mixer_mono,
+(void *)  vlc_entry__demux_libmod,
+(void *)  vlc_entry__demux_mkv_libmkv,
+(void *)  vlc_entry__demux_mjpeg,
+(void *)  vlc_entry__services_discovery_libmicrodns,
+(void *)  vlc_entry__keystore_memory,
+(void *)  vlc_entry__codec_lpcm,
+(void *)  vlc_entry__spu_logo,
+(void *)  vlc_entry__access_liblive555,
+(void *)  vlc_entry__codec_liblibass,
+(void *)  vlc_entry__audio_filter_karaoke,
+(void *)  vlc_entry__audio_mixer_libinteger_mixer,
+(void *)  vlc_entry__stream_filter_inflate,
+(void *)  vlc_entry__access_imem_access,
+(void *)  vlc_entry__demux_image,
+(void *)  vlc_entry__access_idummy,
+(void *)  vlc_entry__video_chroma_libi422_yuy2,
+(void *)  vlc_entry__video_chroma_i422_i420,
+(void *)  vlc_entry__video_chroma_libi420_yuy2,
+(void *)  vlc_entry__video_chroma_i420_rgb,
+(void *)  vlc_entry__video_chroma_libi420_nv12,
+(void *)  vlc_entry__video_chroma_libi420_10_p010,
+(void *)  vlc_entry__access_http_access,
+(void *)  vlc_entry__access_http,
+(void *)  vlc_entry__stream_filter_hds_libhds,
+(void *)  vlc_entry__demux_mpeg_h26x,
+(void *)  vlc_entry__video_chroma_grey_yuv,
+(void *)  vlc_entry__video_output_opengl_libglconv_cvpx,
+(void *)  vlc_entry__audio_filter_gain,
+(void *)  vlc_entry__codec_g711,
+(void *)  vlc_entry__access_ftp,
+(void *)  vlc_entry__video_filter_freeze,
+(void *)  vlc_entry__text_renderer_freetype_libfreetype,
+(void *)  vlc_entry__video_filter_fps,
+(void *)  vlc_entry__meta_engine_folder,
+(void *)  vlc_entry__audio_mixer_libfloat_mixer,
+(void *)  vlc_entry__video_output_flaschen,
+(void *)  vlc_entry__demux_libflacsys,
+(void *)  vlc_entry__codec_libflac,
+(void *)  vlc_entry__access_libfilesystem,
+(void *)  vlc_entry__keystore_file,
+(void *)  vlc_entry__demux_mpeg_es,
+(void *)  vlc_entry__audio_filter_equalizer,
+(void *)  vlc_entry__codec_edummy,
+(void *)  vlc_entry__video_filter_edgedetection,
+(void *)  vlc_entry__codec_dvbsub,
+(void *)  vlc_entry__control_dummy,
+(void *)  vlc_entry__audio_filter_channel_mixer_dolby,
+(void *)  vlc_entry__demux_directory,
+(void *)  vlc_entry__demux_libdiracsys,
+(void *)  vlc_entry__demux_libdemux_stl,
+(void *)  vlc_entry__stream_out_chromecast_libdemux_chromecast,
+(void *)  vlc_entry__demux_libdemux_cdg,
+(void *)  vlc_entry__video_filter_deinterlace_libdeinterlace,
+(void *)  vlc_entry__stream_filter_decomp,
+(void *)  vlc_entry__codec_ddummy,
+(void *)  vlc_entry__video_chroma_libcvpx,
+(void *)  vlc_entry__codec_cvdsub,
+(void *)  vlc_entry__video_filter_croppadd,
+(void *)  vlc_entry__audio_filter_compressor,
+(void *)  vlc_entry__video_filter_ci_filters,
+(void *)  vlc_entry__audio_filter_chorus_flanger,
+(void *)  vlc_entry__video_chroma_chain,
+(void *)  vlc_entry__codec_cdg,
+(void *)  vlc_entry__codec_cc,
+(void *)  vlc_entry__video_filter_canvas,
+(void *)  vlc_entry__demux_caf,
+(void *)  vlc_entry__stream_filter_cache_read,
+(void *)  vlc_entry__stream_filter_cache_block,
+(void *)  vlc_entry__services_discovery_libbonjour,
+(void *)  vlc_entry__video_filter_blend,
+(void *)  vlc_entry__access_libavio,
+(void *)  vlc_entry__demux_avi_avi,
+(void *)  vlc_entry__demux_avformat_libavformat,
+(void *)  vlc_entry__codec_avcodec_libavcodec,
+(void *)  vlc_entry__audio_output_audiounit_ios,
+(void *)  vlc_entry__codec_audiotoolbox_midi,
+(void *)  vlc_entry__audio_filter_converter_libaudio_format,
+(void *)  vlc_entry__demux_au,
+(void *)  vlc_entry__access_attachment,
+(void *)  vlc_entry__demux_asf_asf,
+(void *)  vlc_entry__stream_extractor_libarchive,
+(void *)  vlc_entry__codec_araw,
+(void *)  vlc_entry__codec_libaom,
+(void *)  vlc_entry__audio_output_amem,
+(void *)  vlc_entry__demux_aiff,
+(void *)  vlc_entry__audio_output_libafile,
+(void *)  vlc_entry__codec_aes3,
+(void *)  vlc_entry__audio_output_adummy,
+(void *)  vlc_entry__codec_adpcm,
+(void *)  vlc_entry__video_filter_adjust,
+(void *)  vlc_entry__stream_filter_adf,
+(void *)  vlc_entry__demux_adaptive_libadaptive,
+(void *)  vlc_entry__access_output_libaccess_output_shout,
+(void *)  vlc_entry__access_output_http,
+(void *)  vlc_entry__access_output_file,
+(void *)  vlc_entry__access_output_dummy,
+(void *)  vlc_entry__access_mms_libaccess_mms,
+(void *)  vlc_entry__access_concat,
+   #ifdef __arm__
+(void *)  vlc_entry__arm_neon_libyuv_rgb_neon,
+(void *)  vlc_entry__arm_neon_libchroma_yuv_neon,
+   #endif
 NULL
 };
