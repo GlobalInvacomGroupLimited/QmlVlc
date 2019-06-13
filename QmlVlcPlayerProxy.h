@@ -50,7 +50,7 @@ protected:
     void classEnd();
 
 public:
-    explicit QmlVlcPlayerProxy( QObject* parent = 0 );
+    explicit QmlVlcPlayerProxy( QObject* parent = nullptr );
     ~QmlVlcPlayerProxy();
 
     Q_PROPERTY( QString vlcVersion READ get_vlcVersion )

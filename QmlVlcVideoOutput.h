@@ -44,7 +44,7 @@ class QmlVlcVideoOutput : public QObject
 {
     Q_OBJECT
 public:
-    explicit QmlVlcVideoOutput( QObject* parent = 0 );
+    explicit QmlVlcVideoOutput( QObject* parent = nullptr );
 
     void classBegin( const std::shared_ptr<VLC::MediaPlayer>& player );
     void init();

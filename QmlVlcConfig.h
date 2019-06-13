@@ -76,7 +76,7 @@ signals:
 
 
 private:
-    QmlVlcConfig( QObject* parent = 0 );
+    QmlVlcConfig( QObject* parent = nullptr );
     ~QmlVlcConfig();
 
     QmlVlcConfig( QmlVlcConfig& ) = delete;
@@ -110,7 +110,7 @@ public:
     Q_INVOKABLE bool createLibvlcInstance( )  { return QmlVlcConfig::instance( ).createLibvlcInstance( ); }
     Q_INVOKABLE bool releaseLibvlcInstance( ) { return QmlVlcConfig::instance( ).releaseLibvlcInstance( ); }
 
-    QmlVlcConfigProxy( QObject* parent = 0 );
+    QmlVlcConfigProxy( QObject* parent = nullptr );
     ~QmlVlcConfigProxy() {}
 
     int getlogging() const {    return QmlVlcConfig::instance( ).getlogging( ); }

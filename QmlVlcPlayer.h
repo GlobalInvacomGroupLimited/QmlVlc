@@ -32,7 +32,7 @@ class QmlVlcPlayer : public QmlVlcPlayerProxy
     Q_OBJECT
 
 public:
-     QmlVlcPlayer( QObject* parent = 0 );
+     QmlVlcPlayer( QObject* parent = nullptr );
     ~QmlVlcPlayer();
 
     using QmlVlcPlayerProxy::classBegin;
