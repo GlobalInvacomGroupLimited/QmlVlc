@@ -128,7 +128,9 @@ int vlc_entry__stream_out_setid (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__android_audiotrack (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__nsc (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__headphone_channel_mixer (int (*)(void *, void *, int, ...), void *);
+#ifndef ANDROID_ARMV8A
 int vlc_entry__yuv_rgb_neon (int (*)(void *, void *, int, ...), void *);
+#endif
 int vlc_entry__inflate (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__flaschen (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__access_concat (int (*)(void *, void *, int, ...), void *);
@@ -166,7 +168,9 @@ int vlc_entry__marq (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__rawdv (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__canvas (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__access_output_livehttp (int (*)(void *, void *, int, ...), void *);
+#ifndef ANDROID_ARMV8A
 int vlc_entry__chroma_yuv_neon (int (*)(void *, void *, int, ...), void *);
+#endif
 int vlc_entry__scale (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__freeze (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__stream_out_record (int (*)(void *, void *, int, ...), void *);
@@ -224,7 +228,9 @@ int vlc_entry__oggspots (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__spudec (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__h26x (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__access_output_udp (int (*)(void *, void *, int, ...), void *);
+#ifndef ANDROID_ARMV8A
 int vlc_entry__volume_neon (int (*)(void *, void *, int, ...), void *);
+#endif
 int vlc_entry__demux_cdg (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__i422_i420 (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__stereo_widen (int (*)(void *, void *, int, ...), void *);
@@ -402,7 +408,9 @@ const void *vlc_static_modules[] = {
  (void *) vlc_entry__android_audiotrack,
  (void *) vlc_entry__nsc,
  (void *) vlc_entry__headphone_channel_mixer,
+#ifndef ANDROID_ARMV8A
  (void *) vlc_entry__yuv_rgb_neon,
+#endif
  (void *) vlc_entry__inflate,
  (void *) vlc_entry__flaschen,
  (void *) vlc_entry__access_concat,
@@ -440,7 +448,9 @@ const void *vlc_static_modules[] = {
  (void *) vlc_entry__rawdv,
  (void *) vlc_entry__canvas,
  (void *) vlc_entry__access_output_livehttp,
+#ifndef ANDROID_ARMV8A
  (void *) vlc_entry__chroma_yuv_neon,
+#endif
  (void *) vlc_entry__scale,
  (void *) vlc_entry__freeze,
  (void *) vlc_entry__stream_out_record,
@@ -498,7 +508,9 @@ const void *vlc_static_modules[] = {
  (void *) vlc_entry__spudec,
  (void *) vlc_entry__h26x,
  (void *) vlc_entry__access_output_udp,
+#ifndef ANDROID_ARMV8A
  (void *) vlc_entry__volume_neon,
+#endif
  (void *) vlc_entry__demux_cdg,
  (void *) vlc_entry__i422_i420,
  (void *) vlc_entry__stereo_widen,
