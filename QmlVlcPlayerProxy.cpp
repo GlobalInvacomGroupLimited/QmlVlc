@@ -138,7 +138,7 @@ void QmlVlcPlayerProxy::play( bool play )
     if( play )
         player().play();
     else
-        player().stop();
+        player().stopAsync();
 }
 
 void QmlVlcPlayerProxy::pause()
@@ -194,7 +194,7 @@ double QmlVlcPlayerProxy::get_position()
 
 void QmlVlcPlayerProxy::set_position( double pos )
 {
-    player().setPosition( static_cast<float>( pos ) );
+    player().setPosition( static_cast<float>( pos ), false );
 }
 
 double QmlVlcPlayerProxy::get_time()
@@ -204,5 +204,5 @@ double QmlVlcPlayerProxy::get_time()
 
 void QmlVlcPlayerProxy::set_time( double t )
 {
-    player().setTime( static_cast<libvlc_time_t>( t ) );
+    player().setTime( static_cast<libvlc_time_t>( t ), false );
 }

@@ -81,14 +81,14 @@ void QmlVlcAudio::set_mute( bool mute )
 {
      if ( mute && ( audioTrackList.size() > 0 ) )
      {
-         player().setAudioTrack(-1);
+         player().unsetAudioTrack(audioTrackList[0]);
      }
      else if( ( audioTrackList.size() > 0 ) )
      {
          player().setAudioTrack( audioTrackList[0] );
 
 #if defined( Q_OS_LINUX ) && !defined( Q_OS_ANDROID )
-         player().setMute(false);
+         //player().setMute(false);
 #endif
      }
 }
