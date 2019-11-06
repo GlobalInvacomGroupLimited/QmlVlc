@@ -31,7 +31,6 @@ int vlc_entry__video_output_vmem (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__visualization_visual_visual (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__video_output_splitter (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__video_filter_vhs (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__video_output_vgl (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__video_output_vdummy (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__access_vdr (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__demux_vc1 (int (*)(void *, void *, int, ...), void *);
@@ -343,7 +342,6 @@ const void *vlc_static_modules[] = {
  (void *)   vlc_entry__visualization_visual_visual,
  (void *)   vlc_entry__video_output_splitter,
  (void *)   vlc_entry__video_filter_vhs,
- (void *)   vlc_entry__video_output_vgl,
  (void *)   vlc_entry__video_output_vdummy,
  (void *)   vlc_entry__access_vdr,
  (void *)   vlc_entry__demux_vc1,
