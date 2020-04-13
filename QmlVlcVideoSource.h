@@ -29,34 +29,53 @@
 
 #include <QtQml/qqml.h>
 #include <QQmlParserStatus>
+#include <QSGNode>
+#include <QQuickItem>
 
 #include <libvlcpp/vlcpp/vlc.hpp>
 
-#include "QmlVlcVideoOutput.h"
+#include "QmlVlcOpenGlOutput.h"
 
-class QmlVlcVideoSurface;
+class QmlVlcOpenGlOutput;
 
-class QmlVlcVideoSource : public QObject, public QQmlParserStatus
+class QmlVlcVideoSource : public QQuickItem
 {
     Q_OBJECT
     Q_INTERFACES( QQmlParserStatus )
 
+    Q_PROPERTY( int majorVerion READ get_majorVersion WRITE set_majorVersion )
+    Q_PROPERTY( int minorVerion READ get_minorVersion WRITE set_minorVersion )
+
+    static QList<QThread *> threads;
+
+public Q_SLOTS:
+    void ready();
+
+
 public:
-    QmlVlcVideoSource( QObject* parent );
+    QmlVlcVideoSource( );
 
     using QQmlParserStatus::classBegin;
     virtual void classBegin( const std::shared_ptr<VLC::MediaPlayer>& player );
 
-    Q_PROPERTY( QAbstractVideoSurface* videoSurface READ videoSurface WRITE setVideoSurface )
-
-    QAbstractVideoSurface* videoSurface() const;
-    void setVideoSurface( QAbstractVideoSurface* s );
 
 signals:
     void displayedFrames();
 
 
 
+protected:
+    QSGNode *updatePaintNode(QSGNode *, UpdatePaintNodeData *);
+
 private:
-    QScopedPointer<QmlVlcVideoOutput> m_videoOutput;
+    QScopedPointer<QmlVlcOpenGlOutput> m_videoOutput;
+
+    int majorVerion;
+    int minorVerion;
+
+    int get_majorVersion() {return majorVerion;}
+    int get_minorVersion() {return minorVerion;}
+
+    void set_majorVersion(int version) {majorVerion = version; qDebug() << "**** MajorVersion" + QString(majorVerion);  }
+    void set_minorVersion(int version) {minorVerion = version; qDebug() << "**** MinorVersion" + QString(minorVerion);}
 };

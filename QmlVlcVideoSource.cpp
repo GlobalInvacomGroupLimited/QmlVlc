@@ -25,30 +25,102 @@
 
 #include "QmlVlcVideoSource.h"
 
-QmlVlcVideoSource::QmlVlcVideoSource(QObject* parent )
-    : QObject( parent ), m_videoOutput( nullptr )
+#include <memory>
+#include <QtCore/QMutex>
+#include <QtCore/QThread>
+
+#include <QtQuick/QQuickWindow>
+
+#include "QmlVlcTextureNode.h"
+
+
+QmlVlcVideoSource::QmlVlcVideoSource()
+    : m_videoOutput( nullptr )
 {
+    setFlag(ItemHasContents, true);
 }
 
 void QmlVlcVideoSource::classBegin( const std::shared_ptr<VLC::MediaPlayer>& player )
 {
 
-    m_videoOutput.reset( new QmlVlcVideoOutput( parent() ) );
+    m_videoOutput.reset( new QmlVlcOpenGlOutput( ) );
 
 
-    QObject::connect(m_videoOutput.data(), SIGNAL(framesDisplayed()), this,  SIGNAL(displayedFrames()));
+    //QObject::connect(m_videoOutput.data(), SIGNAL(framesDisplayed()), this,  SIGNAL(displayedFrames()));
 
     m_videoOutput->classBegin( player );
+}
+
+
+
+void QmlVlcVideoSource::ready()
+{
+    m_videoOutput->surface = new QOffscreenSurface();
+    m_videoOutput->surface->setFormat(m_videoOutput->context->format());
+    m_videoOutput->surface->create();
+
+
+    m_videoOutput->moveToThread(m_videoOutput.get());
+
+    connect(window(), &QQuickWindow::sceneGraphInvalidated, m_videoOutput.data(), &QmlVlcOpenGlOutput::shutDown, Qt::QueuedConnection);
 
     m_videoOutput->init();
+
+    m_videoOutput->start();
+    update();
 }
 
-QAbstractVideoSurface* QmlVlcVideoSource::videoSurface() const
+QSGNode *QmlVlcVideoSource::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *)
 {
-    return m_videoOutput->videoSurface();
+    QmlVlcTextureNode *node = static_cast<QmlVlcTextureNode *>(oldNode);
+
+    if (!m_videoOutput->context) {
+        QOpenGLContext *current = window()->openglContext();
+        // Some GL implementations requres that the currently bound context is
+        // made non-current before we set up sharing, so we doneCurrent here
+        // and makeCurrent down below while setting up our own context.
+        current->doneCurrent();
+
+        m_videoOutput->context = new QOpenGLContext();
+        m_videoOutput->context->setFormat(current->format());
+        m_videoOutput->context->setShareContext(current);
+        m_videoOutput->context->create();
+        m_videoOutput->context->moveToThread(m_videoOutput.get());
+
+        current->makeCurrent(window());
+
+        QMetaObject::invokeMethod(this, "ready");
+        return nullptr;
+    }
+
+    if (!node) {
+        node = new QmlVlcTextureNode(window());
+
+        /* Set up connections to get the production of FBO textures in sync with vsync on the
+         * rendering thread.
+         *
+         * When a new texture is ready on the rendering thread, we use a direct connection to
+         * the texture node to let it know a new texture can be used. The node will then
+         * emit pendingNewTexture which we bind to QQuickWindow::update to schedule a redraw.
+         *
+         * When the scene graph starts rendering the next frame, the prepareNode() function
+         * is used to update the node with the new texture. Once it completes, it emits
+         * textureInUse() which we connect to the FBO rendering thread's renderNext() to have
+         * it start producing content into its current "back buffer".
+         *
+         * This FBO rendering pipeline is throttled by vsync on the scene graph rendering thread.
+         */
+        connect(m_videoOutput.data(), &QmlVlcOpenGlOutput::textureReady, node, &QmlVlcTextureNode::newTexture, Qt::DirectConnection);
+        connect(node, &QmlVlcTextureNode::pendingNewTexture, window(), &QQuickWindow::update, Qt::QueuedConnection);
+        connect(window(), &QQuickWindow::beforeRendering, node, &QmlVlcTextureNode::prepareNode, Qt::DirectConnection);
+        connect(node, &QmlVlcTextureNode::textureInUse, m_videoOutput.data(), &QmlVlcOpenGlOutput::renderNext, Qt::QueuedConnection);
+    }
+
+    node->setTextureCoordinatesTransform(QSGSimpleTextureNode::MirrorVertically);
+
+
+    node->setRect(boundingRect());
+
+    return node;
 }
 
-void QmlVlcVideoSource::setVideoSurface( QAbstractVideoSurface* s )
-{
-    m_videoOutput->setVideoSurface( s );
-}
