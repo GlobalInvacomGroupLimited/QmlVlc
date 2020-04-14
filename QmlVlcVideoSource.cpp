@@ -45,7 +45,6 @@ void QmlVlcVideoSource::classBegin( const std::shared_ptr<VLC::MediaPlayer>& pla
 
     m_videoOutput.reset( new QmlVlcOpenGlOutput( ) );
 
-
     //QObject::connect(m_videoOutput.data(), SIGNAL(framesDisplayed()), this,  SIGNAL(displayedFrames()));
 
     m_videoOutput->classBegin( player );
@@ -55,19 +54,29 @@ void QmlVlcVideoSource::classBegin( const std::shared_ptr<VLC::MediaPlayer>& pla
 
 void QmlVlcVideoSource::ready()
 {
+
     m_videoOutput->surface = new QOffscreenSurface();
+    m_videoOutput->context->format().setSwapBehavior(QSurfaceFormat::TripleBuffer);
     m_videoOutput->surface->setFormat(m_videoOutput->context->format());
     m_videoOutput->surface->create();
-
 
     m_videoOutput->moveToThread(m_videoOutput.get());
 
     connect(window(), &QQuickWindow::sceneGraphInvalidated, m_videoOutput.data(), &QmlVlcOpenGlOutput::shutDown, Qt::QueuedConnection);
 
-    m_videoOutput->init();
+    m_videoOutput->init(size().toSize());
 
     m_videoOutput->start();
     update();
+}
+
+void QmlVlcVideoSource::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry)
+{
+    QQuickItem::geometryChanged(newGeometry, oldGeometry);
+
+    if(m_videoOutput) {
+        m_videoOutput->updateSize(newGeometry.size().toSize());
+    }
 }
 
 QSGNode *QmlVlcVideoSource::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *)
@@ -105,20 +114,19 @@ QSGNode *QmlVlcVideoSource::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeDat
          *
          * When the scene graph starts rendering the next frame, the prepareNode() function
          * is used to update the node with the new texture. Once it completes, it emits
-         * textureInUse() which we connect to the FBO rendering thread's renderNext() to have
+         * textureInUse() which we connect to the FBO rendering thread's getVideoFrame() to have
          * it start producing content into its current "back buffer".
          *
          * This FBO rendering pipeline is throttled by vsync on the scene graph rendering thread.
          */
+
         connect(m_videoOutput.data(), &QmlVlcOpenGlOutput::textureReady, node, &QmlVlcTextureNode::newTexture, Qt::DirectConnection);
         connect(node, &QmlVlcTextureNode::pendingNewTexture, window(), &QQuickWindow::update, Qt::QueuedConnection);
         connect(window(), &QQuickWindow::beforeRendering, node, &QmlVlcTextureNode::prepareNode, Qt::DirectConnection);
-        connect(node, &QmlVlcTextureNode::textureInUse, m_videoOutput.data(), &QmlVlcOpenGlOutput::renderNext, Qt::QueuedConnection);
+        connect(node, &QmlVlcTextureNode::textureInUse, m_videoOutput.data(), &QmlVlcOpenGlOutput::getVideoFrame, Qt::QueuedConnection);
     }
 
     node->setTextureCoordinatesTransform(QSGSimpleTextureNode::MirrorVertically);
-
-
     node->setRect(boundingRect());
 
     return node;

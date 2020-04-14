@@ -73,6 +73,9 @@ private:
     int majorVerion;
     int minorVerion;
 
+    using QQuickItem::geometryChanged;
+    virtual void geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry);
+
     int get_majorVersion() {return majorVerion;}
     int get_minorVersion() {return minorVerion;}
 

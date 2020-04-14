@@ -22,17 +22,23 @@ public:
     explicit QmlVlcOpenGlOutput( );
 
     void classBegin( const std::shared_ptr<VLC::MediaPlayer>& player );
-    void init();
+    void init(QSize initSize);
     ~QmlVlcOpenGlOutput();
 
-    /// return the texture to be displayed
-    QOpenGLFramebufferObject *getVideoFrame();
+
+
+
+    void updateSize(QSize size);
+
 
     QOffscreenSurface *surface;
     QOpenGLContext *context;
 
 public slots:
-    void renderNext();
+    /// signal the texture to be displayed
+    void getVideoFrame();
+
+    void resize();
 
     void startRender();
 
@@ -46,29 +52,29 @@ signals:
 
 
 private:
-    virtual  void widowResize(report_size_change resizeCb, void *report_opaque);
+    virtual  void widowResizeCb(report_size_change resizeCb, void *report_opaque);
 
     /// this callback will create the surfaces and FBO used by VLC to perform its rendering
-    virtual  bool resizeRenderTextures(const libvlc_video_render_cfg_t *cfg, libvlc_video_output_cfg_t *render_cfg);
+    virtual  bool resizeRenderTexturesCb(const libvlc_video_render_cfg_t *cfg, libvlc_video_output_cfg_t *render_cfg);
 
     // This callback is called during initialisation.
-    virtual  bool setup(const libvlc_video_setup_device_cfg_t *cfg, libvlc_video_setup_device_info_t *out);
+    virtual  bool setupCb(const libvlc_video_setup_device_cfg_t *cfg, libvlc_video_setup_device_info_t *out);
 
     // This callback is called to release the texture and FBO created in resize
-    virtual  void cleanup();
+    virtual  void cleanupCb();
 
     //This callback is called after VLC performs drawing calls
-    virtual  void swap();
+    virtual  void swapCb();
 
     // This callback is called to set the OpenGL context
-    virtual  bool make_current(bool current);
+    virtual  bool makeCurrentCb(bool current);
 
     // This callback is called by VLC to get OpenGL functions.
-    virtual void* get_proc_address(const char* current);
+    virtual void* getProcAddressCb(const char* current);
 
-    virtual void frame_metadata(libvlc_video_metadata_type_t type, const void *metadata);
+    virtual void frameMetadataCb(libvlc_video_metadata_type_t type, const void *metadata);
 
-    virtual bool output_select_plane(size_t plane);
+    virtual bool outputSelectPlaneCb(size_t plane);
 
 private:
     std::shared_ptr<VLC::MediaPlayer> m_player;
@@ -87,6 +93,8 @@ private:
     bool firstFrame = true;
     report_size_change resizeCb;
     void* report_opaque;
+
+    QSize m_size;
 };
 
 
