@@ -1,8 +1,10 @@
 HEADERS += \
     $$PWD/QmlVlc.h \
     $$PWD/QmlVlcConfig.h \
+    $$PWD/QmlVlcOpenGlOutput.h \
     $$PWD/QmlVlcPlayerProxy.h \
     $$PWD/QmlVlcPlayer.h \
+    $$PWD/QmlVlcTextureNode.h \
     $$PWD/QmlVlcVideoSource.h \
     $$PWD/QmlVlcVideoOutput.h \
     $$PWD/QmlVlcVideoFrame.h \
@@ -33,8 +35,10 @@ HEADERS += \
 SOURCES += \
     $$PWD/QmlVlc.cpp \
     $$PWD/QmlVlcConfig.cpp \
+    $$PWD/QmlVlcOpenGlOutput.cpp \
     $$PWD/QmlVlcPlayerProxy.cpp \
     $$PWD/QmlVlcPlayer.cpp \
+    $$PWD/QmlVlcTextureNode.cpp \
     $$PWD/QmlVlcVideoSource.cpp \
     $$PWD/QmlVlcVideoOutput.cpp \
     $$PWD/QmlVlcVideoFrame.cpp \
