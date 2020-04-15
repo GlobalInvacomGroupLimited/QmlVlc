@@ -1,9 +1,9 @@
 
+#include <QDebug>
 #include <QOpenGLContext>
 #include <QtGui/QGuiApplication>
 #include "QmlVlcOpenGlOutput.h"
-
-#include <QDebug>
+#include "QmlVlcVideoSource.h"
 
 QmlVlcOpenGlOutput::QmlVlcOpenGlOutput()
     : surface(nullptr),
@@ -11,16 +11,18 @@ QmlVlcOpenGlOutput::QmlVlcOpenGlOutput()
       firstFrame(true),
       resizeCb(nullptr),
       report_opaque(nullptr),
-      m_size(100,100)
+      m_size(100,100),
+      frameCounter( 0 ),
+      emitframesDisplayed(true)
 {
-    mBuffers[0] = NULL;
-    mBuffers[1] = NULL;
-    mBuffers[2] = NULL;
+    mBuffers[0] = nullptr;
+    mBuffers[1] = nullptr;
+    mBuffers[2] = nullptr;
 }
 
 QmlVlcOpenGlOutput::~QmlVlcOpenGlOutput()
 {
-    cleanupCb();
+    cleanup();
 }
 
 void QmlVlcOpenGlOutput::classBegin( const std::shared_ptr<VLC::MediaPlayer>& player )
@@ -71,6 +73,22 @@ void QmlVlcOpenGlOutput::init(QSize initSize)
                 });
 }
 
+void QmlVlcOpenGlOutput::cleanup()
+{
+    if ( m_width == 0 && m_height == 0 )
+        return;
+
+    delete mBuffers[0];
+    mBuffers[0] = nullptr;
+    delete mBuffers[1];
+    mBuffers[1] = nullptr;
+    delete mBuffers[2];
+    mBuffers[2] = nullptr;
+
+    m_width = 0;
+    m_height = 0;
+}
+
 /// Signal the texture to be displayed
 void QmlVlcOpenGlOutput::getVideoFrame()
 {
@@ -82,6 +100,14 @@ void QmlVlcOpenGlOutput::getVideoFrame()
 
     if(mBuffers[m_idx_display] != nullptr) {
         emit textureReady(mBuffers[m_idx_display]->texture(), m_size);
+
+        frameCounter++;
+
+        if( frameCounter > 30 && emitframesDisplayed  )
+        {
+            emitframesDisplayed = false;
+            emit framesDisplayed();
+        }
     }
 }
 
@@ -141,7 +167,7 @@ bool QmlVlcOpenGlOutput::resizeRenderTexturesCb( const libvlc_video_render_cfg_t
 
     if (cfg->width != m_width  || cfg->height != m_height){
 
-        cleanupCb();
+        cleanup();
 
         mBuffers[0] = new QOpenGLFramebufferObject(cfg->width, cfg->height);
         mBuffers[1] = new QOpenGLFramebufferObject(cfg->width, cfg->height);
@@ -168,15 +194,15 @@ bool QmlVlcOpenGlOutput::resizeRenderTexturesCb( const libvlc_video_render_cfg_t
 /// This callback is called to release the texture and FBO created in resize
 void QmlVlcOpenGlOutput::cleanupCb( )
 {
-    if ( m_width == 0 && m_height == 0 )
-        return;
 
-    delete mBuffers[0];
-    mBuffers[0] = NULL;
-    delete mBuffers[1];
-    mBuffers[1] = NULL;
-    delete mBuffers[2];
-    mBuffers[2] = NULL;
+    firstFrame = true;
+    resizeCb = nullptr;
+    report_opaque = nullptr;
+
+    frameCounter = 0;
+    emitframesDisplayed =true;
+
+    cleanup();
 }
 
 
@@ -241,6 +267,17 @@ void QmlVlcOpenGlOutput::startRender()
 
 void QmlVlcOpenGlOutput::shutDown()
 {
+
+#if defined(__APPLE__) || defined (__ANDROID__) || defined(__RASPBERRY_PI__)
+    libvlc_video_engine_t engine = libvlc_video_engine_gles2;
+#else
+    libvlc_video_engine_t engine = libvlc_video_engine_opengl;
+#endif
+
+    m_player->setVideoOutputCallbacks(engine,  nullptr, nullptr, nullptr, nullptr,
+                                      nullptr, nullptr, nullptr, nullptr, nullptr);
+
+
     context->makeCurrent(surface);
     context->doneCurrent();
     delete context;
@@ -248,13 +285,4 @@ void QmlVlcOpenGlOutput::shutDown()
     // schedule this to be deleted only after we're done cleaning up
     surface->deleteLater();
 
-    // Stop event processing, move the thread to GUI and make sure it is deleted.
-    exit();
-    moveToThread(QGuiApplication::instance()->thread());
 }
-
-
-//QOpenGLFramebufferObject * QtVLCWidget::render()
-//{
-//    return mVLC->getVideoFrame();
-//}

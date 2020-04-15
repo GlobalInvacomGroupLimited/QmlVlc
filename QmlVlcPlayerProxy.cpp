@@ -30,7 +30,7 @@
 #include <QDebug>
 #include <QCoreApplication>
 
-QmlVlcPlayerProxy::QmlVlcPlayerProxy( QObject* parent ) : QmlVlcVideoSource( parent ),
+QmlVlcPlayerProxy::QmlVlcPlayerProxy( QObject* parent ) : QmlVlcVideoSource( ),
     m_player( nullptr ), h_onPlaying( nullptr ), h_onStopped( nullptr ), playing( false )
 {
     m_errorTimer.setInterval( 1000 );
@@ -74,6 +74,7 @@ void QmlVlcPlayerProxy::classBegin( )
         if( playing == true ) {
             playing = false;
             Q_EMIT playingChanged();
+            stopped.wakeAll();
         }  } );
 
     h_onEncounteredError = player().eventManager().onEncounteredError( [this](){
@@ -105,6 +106,11 @@ void QmlVlcPlayerProxy::componentComplete()
 
 void QmlVlcPlayerProxy::classEnd()
 {
+    if(playing) {
+        play(false);
+        stopped.wait(&stoppedMutex);
+    }
+
     m_audio.classEnd();
 
     auto em =  player().eventManager();

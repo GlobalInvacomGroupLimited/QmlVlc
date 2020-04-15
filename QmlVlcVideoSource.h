@@ -36,8 +36,6 @@
 
 #include "QmlVlcOpenGlOutput.h"
 
-class QmlVlcOpenGlOutput;
-
 class QmlVlcVideoSource : public QQuickItem
 {
     Q_OBJECT
@@ -46,7 +44,6 @@ class QmlVlcVideoSource : public QQuickItem
     Q_PROPERTY( int majorVerion READ get_majorVersion WRITE set_majorVersion )
     Q_PROPERTY( int minorVerion READ get_minorVersion WRITE set_minorVersion )
 
-    static QList<QThread *> threads;
 
 public Q_SLOTS:
     void ready();
@@ -54,6 +51,7 @@ public Q_SLOTS:
 
 public:
     QmlVlcVideoSource( );
+    ~QmlVlcVideoSource( );
 
     using QQmlParserStatus::classBegin;
     virtual void classBegin( const std::shared_ptr<VLC::MediaPlayer>& player );

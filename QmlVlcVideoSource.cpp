@@ -39,18 +39,21 @@ QmlVlcVideoSource::QmlVlcVideoSource()
 {
     setFlag(ItemHasContents, true);
 }
+QmlVlcVideoSource::~QmlVlcVideoSource()
+{
+    m_videoOutput->terminate();
+    m_videoOutput->wait();
+}
 
 void QmlVlcVideoSource::classBegin( const std::shared_ptr<VLC::MediaPlayer>& player )
 {
 
     m_videoOutput.reset( new QmlVlcOpenGlOutput( ) );
 
-    //QObject::connect(m_videoOutput.data(), SIGNAL(framesDisplayed()), this,  SIGNAL(displayedFrames()));
+    QObject::connect(m_videoOutput.data(), SIGNAL(framesDisplayed()), this,  SIGNAL(displayedFrames()));
 
     m_videoOutput->classBegin( player );
 }
-
-
 
 void QmlVlcVideoSource::ready()
 {
@@ -61,8 +64,6 @@ void QmlVlcVideoSource::ready()
     m_videoOutput->surface->create();
 
     m_videoOutput->moveToThread(m_videoOutput.get());
-
-    connect(window(), &QQuickWindow::sceneGraphInvalidated, m_videoOutput.data(), &QmlVlcOpenGlOutput::shutDown, Qt::QueuedConnection);
 
     m_videoOutput->init(size().toSize());
 

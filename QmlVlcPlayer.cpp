@@ -38,7 +38,4 @@ void QmlVlcPlayer::classBegin()
 
 QmlVlcPlayer::~QmlVlcPlayer()
 {
-    classEnd();
-
-    play( false );
 }

@@ -14,7 +14,6 @@
 
 typedef void (*report_size_change)(void *report_opaque, unsigned width, unsigned height);
 
-
 class QmlVlcOpenGlOutput: public QThread
 {
     Q_OBJECT
@@ -25,11 +24,7 @@ public:
     void init(QSize initSize);
     ~QmlVlcOpenGlOutput();
 
-
-
-
     void updateSize(QSize size);
-
 
     QOffscreenSurface *surface;
     QOpenGLContext *context;
@@ -47,8 +42,9 @@ public slots:
 signals:
     void frameReady();
 
-signals:
     void textureReady(int id, const QSize &size);
+
+    void framesDisplayed();
 
 
 private:
@@ -76,6 +72,8 @@ private:
 
     virtual bool outputSelectPlaneCb(size_t plane);
 
+    void cleanup();
+
 private:
     std::shared_ptr<VLC::MediaPlayer> m_player;
 
@@ -95,7 +93,9 @@ private:
     void* report_opaque;
 
     QSize m_size;
-};
 
+    int frameCounter;
+    bool emitframesDisplayed;
+};
 
 #endif // QMLVLCOPENGLOUTPUT_H

@@ -28,7 +28,9 @@
 #include <QObject>
 #include <QTimer>
 #include <QEvent>
+#include <QMutex>
 #include <QQmlParserStatus>
+#include <QWaitCondition>
 
 #include "QmlVlcVideoSource.h"
 #include "QmlVlcAudio.h"
@@ -47,7 +49,7 @@ protected:
     using::QmlVlcVideoSource::classBegin;
     virtual void classBegin( ) override;
     virtual void componentComplete() override;
-    void classEnd();
+    virtual void classEnd();
 
 public:
     explicit QmlVlcPlayerProxy( QObject* parent = nullptr );
@@ -157,6 +159,8 @@ private:
     VLC::EventManager::RegisteredEvent h_onStopped;
     VLC::EventManager::RegisteredEvent h_onEncounteredError;
 
+    QWaitCondition stopped;
+    QMutex stoppedMutex;
 
     bool playing;
 
