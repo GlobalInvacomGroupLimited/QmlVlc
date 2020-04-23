@@ -98,7 +98,6 @@ int vlc_entry__scte18 (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__wave (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__subsusf (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__packetizer_mpegaudio (int (*)(void *, void *, int, ...), void *);
-int vlc_entry__aom (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__mjpeg (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__aiff (int (*)(void *, void *, int, ...), void *);
 int vlc_entry__packetizer_avparser (int (*)(void *, void *, int, ...), void *);
@@ -318,7 +317,6 @@ const void *vlc_static_modules[] = {
  (void *) vlc_entry__wave,
  (void *) vlc_entry__subsusf,
  (void *) vlc_entry__packetizer_mpegaudio,
- (void *) vlc_entry__aom,
  (void *) vlc_entry__mjpeg,
  (void *) vlc_entry__aiff,
  (void *) vlc_entry__packetizer_avparser,
